@@ -47,7 +47,7 @@ const Page = () => {
     return (
       <div className="p-6 text-center">
         <div className="animate-spin h-10 w-10 mx-auto border-b-2 border-primary rounded-full" />
-        <p className="text-muted-foreground mt-4">Loading projects...</p>
+        <p className="text-muted-foreground mt-4">Loading Projects...</p>
       </div>
     );
   }
