@@ -16,73 +16,10 @@ import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import { useRef } from "react";
 
-const tests = [
-  {
-    name: "Mohamed Ali",
-    image: "/icons/user.webp",
-    test: "حصلت علي خدمة حجز دومين و الخدمه ممتازه و تم التسليم في الوقت المناسب و الجوده بشكل عام جيدة",
-  },
-  {
-    name: "Mohamed Hamad",
-    image: "/icons/user.webp",
-    test: "الخدمه ممتازه و فريق العمل غاية في الاحتراف و تم تسليم البورتفوليو في وقت اسرع من المتوقع و الموقع احترافي جدا",
-  },
-  {
-    name: "Mohamed Hamad",
-    image: "/icons/user.webp",
-    test: "الخدمه ممتازه و فريق العمل غاية في الاحتراف و تم تسليم البورتفوليو في وقت اسرع من المتوقع و الموقع احترافي جدا",
-  },
-  {
-    name: "Mohamed Hamad",
-    image: "/icons/user.webp",
-    test: "الخدمه ممتازه و فريق العمل غاية في الاحتراف و تم تسليم البورتفوليو في وقت اسرع من المتوقع و الموقع احترافي جدا",
-  },
-];
-const vmcs = [
-  {
-    title: "Vision",
-    icon: (
-      <span role="img" aria-label="globe">
-        🌐
-      </span>
-    ),
-    desc: (
-      <>
-        At <span className="text-blue-500 font-semibold">DeverCrowd</span>, our
-        vision is to become the go-to digital partner for ambitious brands,
-        shaping the future of the web with innovation, creativity, and trust.
-      </>
-    ),
-  },
-  {
-    title: "Core Values",
-    icon: (
-      <span role="img" aria-label="globe">
-        💎
-      </span>
-    ),
-    desc: (
-      <>
-        Integrity, innovation, and teamwork fuel everything we do — guiding how
-        we work, deliver, and grow with our clients.
-      </>
-    ),
-  },
-  {
-    title: "Mission",
-    icon: (
-      <span role="img" aria-label="globe">
-        🚀
-      </span>
-    ),
-    desc: (
-      <>
-        We empower startups and businesses by building scalable, user-centric
-        solutions that transform ideas into real digital impact.
-      </>
-    ),
-  },
-];
+import testimonials from "@/data/dynamic/testimonials";
+
+import {vmc, whoweare} from "@/data/static/about";
+
 const AboutPage = () => {
   const swiperRef = useRef(null);
 
@@ -95,7 +32,7 @@ const AboutPage = () => {
 
       <LampContainer className="[mask-image:linear-gradient(to_top,transparent,white_20%,white_100%,transparent)] min-h-screen flex flex-col items-center justify-center ">
         <h1 className="text-center font-extrabold text-transparent text-4xl sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text tracking-tight leading-tight drop-shadow-[0_2px_20px_rgba(59,130,246,0.5)] ">
-          Who We Are?!
+          {whoweare.title}
         </h1>
 
         <p
@@ -105,16 +42,12 @@ const AboutPage = () => {
             borderRadius: "0px 50px 0px 50px",
           }}
         >
-          At <span className="text-primary font-semibold">DeverCrowd</span>,
-          we're more than developers — we're partners in innovation. From
-          concept to code, we design and engineer seamless digital experiences
-          that grow with your business. Whether it's a product, platform, or
-          complete ecosystem — we make it real.
+          {whoweare.description}
         </p>
       </LampContainer>
       {/* Vision / Mission / core value */}
-      <motion.div className="w-full max-w-7xl px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch border ">
-        {vmcs.map((item, i) => (
+      <motion.div className="w-full max-w-7xl px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {vmc.map((item, i) => (
           <div
             key={i}
             className="group relative flex flex-col items-center text-center rounded-3xl p-6 bg-gradient-to-b from-white/5 to-white/0 border border-blue-500/20 backdrop-blur-md overflow-hidden transition duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)]"
@@ -179,9 +112,9 @@ const AboutPage = () => {
           onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
           onMouseLeave={() => swiperRef.current?.autoplay?.start()}
         >
-          {tests.map((test, i) => (
+          {testimonials.map((testimonial, i) => (
             <SwiperSlide key={i} className="p-5">
-              <TestCard {...test} />
+              <TestCard {...testimonial} />
             </SwiperSlide>
           ))}
         </Swiper>

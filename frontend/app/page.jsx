@@ -9,6 +9,8 @@ import ServicesPage from "@/components/Services/ServicesPage";
 import HomePage from "@/components/Home/HomePage";
 import ContactPage from "@/components/Contact/ContactPage";
 import FlyingDots from "@/components/ui/FlyingDots";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Main() {
   useEffect(() => {
@@ -21,20 +23,24 @@ export default function Main() {
   });
   const { scrollYProgress } = useScroll();
   return (
-    <main className="">
-      <Image
-        alt="Background"
-        src="/bgs/bg13.webp"
-        fill
-        priority // ✅ لأنها أهم صورة
-        quality={100}
-        className="object-cover -z-10"
-      />
-      <FlyingDots />
-      <HomePage progress={scrollYProgress} />
-      <AboutPage progress={scrollYProgress} />
-      <ServicesPage progress={scrollYProgress} />
-      <ContactPage />
-    </main>
+    <>
+    <Header />
+      <main className="">
+        <Image
+          alt="Background"
+          src="/bgs/bg13.webp"
+          fill
+          priority // ✅ لأنها أهم صورة
+          quality={100}
+          className="object-cover -z-10"
+        />
+        <FlyingDots />
+        <HomePage progress={scrollYProgress} />
+        <AboutPage progress={scrollYProgress} />
+        <ServicesPage progress={scrollYProgress} />
+        <ContactPage />
+      </main>
+      <Footer />
+    </>
   );
 }

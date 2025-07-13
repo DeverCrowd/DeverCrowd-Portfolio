@@ -42,19 +42,19 @@ const projectSchema = mongoose.Schema({
   },
   scope: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
     },
   ],
   stack: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
     },
   ],
   industry: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
     },
   ],

@@ -1,65 +1,7 @@
 import H1 from "../ui/H1";
 import { motion } from "framer-motion";
-import { FaPhone } from "react-icons/fa6";
-import { MdMail } from "react-icons/md";
-import { FaMapLocationDot } from "react-icons/fa6";
-import { IoLogoWhatsapp } from "react-icons/io";
-import { FaFacebookF } from "react-icons/fa";
-import { AiFillTikTok } from "react-icons/ai";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaGithub } from "react-icons/fa";
-
 import Link from "next/link";
-
-const infos = [
-  {
-    icon: <FaPhone />,
-    key: "Phone",
-    value: "+201002532021",
-  },
-  {
-    icon: <MdMail />,
-    key: "Email",
-    value: "devercrowd@gmail.com",
-  },
-  {
-    icon: <FaMapLocationDot />,
-    key: "Location",
-    value: "Egypt",
-  },
-];
-const socials = [
-  {
-    icon: <IoLogoWhatsapp />,
-    link: "https://wa.me/+201002532021",
-  },
-  {
-    icon: <FaFacebookF />,
-    link: "https://www.facebook.com/profile.php?id=61577937253222",
-  },
-  {
-    icon: <AiFillTikTok />,
-    link: "https://www.tiktok.com/@devercrowd.com",
-  },
-  {
-    icon: <AiFillInstagram />,
-    link: "https://www.instagram.com/devercrowd/",
-  },
-  {
-    icon: <FaLinkedinIn />,
-    link: "https://www.linkedin.com/company/devercrowd/",
-  },
-  {
-    icon: <FaSquareXTwitter />,
-    link: "https://x.com/DeverC96471",
-  },
-  {
-    icon: <FaGithub />,
-    link: "https://github.com/DeverCrowd",
-  },
-];
+import { informations, socials } from "@/data/static/contact";
 const Info = () => {
   return (
     <div className="flex flex-col items-center justify-center">
@@ -74,7 +16,7 @@ const Info = () => {
           transition={{ duration: 0.6 }}
           viewport={{once:true}}
         >
-          {infos.map((info, i) => (
+          {informations.map((info, i) => (
             <motion.div
               key={i}
               className="w-full flex items-center gap-4 p-4 m-3

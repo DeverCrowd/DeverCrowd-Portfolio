@@ -13,24 +13,24 @@ router
   .route("/")
   .get(auth.isauth, projectController.getProjects)
   .post(
-    auth.verifyToken,
-    auth.allowedTo(roles.ceo, roles.cto),
+    // auth.verifyToken,
+    // auth.allowedTo(roles.ceo, roles.cto),
     upload.single("pic"),
     projectController.createProject
   );
 
 router
   .route("/:id")
-  .get(auth.verifyToken, projectController.singleProject)
+  .get( projectController.singleProject)
   .put(
-    auth.verifyToken,
-    auth.allowedTo(roles.ceo, roles.cto),
+    // auth.verifyToken,
+    // auth.allowedTo(roles.ceo, roles.cto),
     upload.single("pic"),
     projectController.updateProject
   )
   .delete(
-    auth.verifyToken,
-    auth.allowedTo(roles.ceo, roles.cto),
+    // auth.verifyToken,
+    // auth.allowedTo(roles.ceo, roles.cto), 
     projectController.delProject
   );
 

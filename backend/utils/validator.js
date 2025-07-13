@@ -61,7 +61,7 @@ const messageValidtor = () => [
     .withMessage("Username is required")
     .isLength({ min: 2 })
     .withMessage("Username must be at least 2 characters")
-    .matches(/^[A-Za-z0-9]+$/)
+    .matches(/^[A-Za-z0-9 ]+$/)
     .withMessage("Username must contain only letters and numbers"),
 
   body("email")
@@ -88,6 +88,12 @@ const messageValidtor = () => [
     .withMessage("Title is required")
     .isLength({ min: 3 })
     .withMessage("Title must be at least 3 characters"),
+  body("message")
+    .trim()
+    .notEmpty()
+    .withMessage("Message is required")
+    .isLength({ min: 10 })
+    .withMessage("Message must be at least 10 characters"),
   body("knownBy")
     .trim()
     .notEmpty()

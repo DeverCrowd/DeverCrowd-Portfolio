@@ -9,8 +9,8 @@ const getProjects = asyncWrapper(async (req, res, next) => {
   const skip = limit * (page - 1);
   let projects;
   if (!req.user) {
-    projects = await Project.find({ status: "completed" })
-      .select("title description pic category")
+    projects = await Project.find()
+      // .select("title description pic category")
       .limit(limit)
       .skip(skip);
   } else {
@@ -41,9 +41,20 @@ const singleProject = asyncWrapper(async (req, res, next) => {
 });
 
 const createProject = asyncWrapper(async (req, res, next) => {
-  const { title, description, timeToFinish, client, status, category, cost} = req.body;
+  const {
+    title,
+    description,
+    timeToFinish,
+    client,
+    status,
+    category,
+    cost,
+    stack,
+    scope,
+    industry,
+  } = req.body;
   const pic = req.file ? req.file.path : null;
-  const newProject = new Project({
+  const project = new Project({
     title,
     description,
     timeToFinish,
@@ -52,18 +63,34 @@ const createProject = asyncWrapper(async (req, res, next) => {
     category,
     cost,
     pic,
+    stack,
+    scope,
+    industry,
   });
-  await newProject.save();
+  await project.save();
+  console.log(project);
   res.status(201).json({
     status: httpResponse.status.created,
     message: httpResponse.message.projectCreated,
-    data: { newProject },
+    data: { project },
   });
 });
 
 const updateProject = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
-  const { title, description, timeToFinish, client, status, category, cost, timeSpend} = req.body;
+  const {
+    title,
+    description,
+    timeToFinish,
+    client,
+    status,
+    category,
+    cost, 
+    timeSpend,
+    stack,
+    scope,
+    industry,
+  } = req.body;
   const project = await Project.findById(id);
   if (!project) {
     const error = errorHandler.create(
@@ -81,7 +108,12 @@ const updateProject = asyncWrapper(async (req, res, next) => {
   project.category = category || project.category;
   project.cost = cost || project.cost;
   project.timeSpend = timeSpend || project.timeSpend;
+  project.stack = stack || project.stack;
+  project.scope = scope || project.scope;
+  project.industry = industry || project.industry;
   await project.save();
+  console.log(project);
+  
   res.json({
     status: httpResponse.status.ok,
     message: httpResponse.message.updateProject,
@@ -98,7 +130,7 @@ const delProject = asyncWrapper(async (req, res, next) => {
       httpResponse.status.notfound
     );
     return next(error);
-  }
+  }  
   res.json({
     status: httpResponse.status.ok,
     message: httpResponse.message.deleteProject,

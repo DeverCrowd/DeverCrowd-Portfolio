@@ -70,7 +70,7 @@ const Card = ({ icon, text, color, i, darkColor, progress,title }) => {
         {title}
       </h1>
       <div className="h-[20%] text-[3rem] sm:text-[4rem] text-white/90 mb-2">
-        {icon()}
+        {icon}
       </div>
 
       <p className="text-center text-white/80 text-sm sm:text-base px-2 leading-relaxed">

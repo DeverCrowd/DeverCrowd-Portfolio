@@ -2,13 +2,16 @@ import { useState } from "react";
 import { FiSend, FiCheckCircle } from "react-icons/fi";
 import H1 from "../ui/H1";
 import { motion } from "framer-motion";
+import { post } from "@/data/api";
 
 const ContactForm = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    company: "",
-    phone: "",
+    phoneNumber: "",
+    title: "",
+    knownBy: "",
+    requestedServices: "",
     message: "",
   });
 
@@ -43,14 +46,25 @@ const ContactForm = () => {
       newErrors.email = "Invalid email format.";
     }
 
-    if (!form.phone.trim()) {
-      newErrors.phone = "Phone number is required.";
-    } else if (!/^(?:\+?\d{9,15}|0\d{8,14})$/.test(form.phone)) {
-      newErrors.phone = "Invalid phone number.";
+    if (!form.phoneNumber.trim()) {
+      newErrors.phoneNumber = "Phone number is required.";
+    } else if (!/^(?:\+?\d{9,15}|0\d{8,14})$/.test(form.phoneNumber)) {
+      newErrors.phoneNumber = "Invalid phone number.";
     }
 
+    if (!form.title.trim()) {
+      newErrors.title = "Title is required.";
+    }
+
+    if (!form.knownBy.trim()) {
+      newErrors.knownBy = "This field is required.";
+    }
+
+    if (!form.requestedServices.trim()) {
+      newErrors.requestedServices = "Please select a service.";
+    }
     if (!form.message.trim() || form.message.length < 10) {
-      newErrors.message = "Message must be at least 10 characters.";
+      newErrors.message = "Message must be at least 10 characters";
     }
 
     return newErrors;
@@ -67,17 +81,26 @@ const ContactForm = () => {
 
     setLoading(true);
 
-    setTimeout(() => {
-      console.log(form);
+    post("http://localhost:3001/api/contact", form).then((res) => {
+      if (res.ok) {
+        setSuccess(true);
+        setForm({
+          name: "",
+          email: "",
+          phoneNumber: "",
+          title: "",
+          knownBy: "",
+          requestedServices: "",
+          message: "",
+        });
+        setErrors({});
+        setTimeout(() => {
+          setSuccess(false);
+        }, 3000);
+      }
+      console.log(res);
       setLoading(false);
-      setSuccess(true);
-      setErrors({});
-      setForm({ name: "", email: "", company: "", phone: "", message: "" });
-
-      setTimeout(() => {
-        setSuccess(false);
-      }, 3000);
-    }, 2000);
+    });
   };
 
   return (
@@ -88,16 +111,15 @@ const ContactForm = () => {
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
     >
-
       <motion.div
         className="card w-full bg-gradient-to-br from-[#0a0f1c] to-[#0c1e3b] py-8 px-6 sm:px-10 md:px-12 rounded-4xl shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
         viewport={{ once: true }}
-        >
+      >
         <H1 title="Get in touch" />
-      
+
         <p className="text-sky-200 text-sm sm:text-base max-w-md">
           Fill out the form and we’ll get back to you shortly.
         </p>
@@ -145,7 +167,7 @@ const ContactForm = () => {
           </div>
 
           <div className="flex flex-col md:flex-row md:gap-6">
-            {["company", "phone"].map((field, index) => (
+            {["phoneNumber", "title"].map((field, index) => (
               <motion.div
                 key={field}
                 className="w-full"
@@ -158,16 +180,30 @@ const ContactForm = () => {
                   {field.charAt(0).toUpperCase() + field.slice(1)}
                 </label>
                 <input
-                  type={field === "phone" ? "tel" : "text"}
+                  type={field === "phoneNumber" ? "tel" : "text"}
                   name={field}
                   value={form[field]}
                   onChange={handleChange}
-                  onKeyDown={field === "phone" ? (e) => {
-                    const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab", "Delete", "+"];
-                    if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
-                      e.preventDefault();
-                    }
-                  } : undefined}
+                  onKeyDown={
+                    field === "phoneNumber"
+                      ? (e) => {
+                          const allowedKeys = [
+                            "Backspace",
+                            "ArrowLeft",
+                            "ArrowRight",
+                            "Tab",
+                            "Delete",
+                            "+",
+                          ];
+                          if (
+                            !/[0-9]/.test(e.key) &&
+                            !allowedKeys.includes(e.key)
+                          ) {
+                            e.preventDefault();
+                          }
+                        }
+                      : undefined
+                  }
                   className="w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white placeholder-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                 />
                 {errors[field] && (
@@ -177,6 +213,65 @@ const ContactForm = () => {
             ))}
           </div>
 
+          <div className="flex flex-col md:flex-row md:gap-6">
+            <motion.div
+              className="w-full"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <label className="text-sky-200 text-sm mb-1 block">
+                How did you know about us?
+              </label>
+              <select
+                name="knownBy"
+                value={form.knownBy}
+                onChange={handleChange}
+                className=" w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-accent"
+              >
+                <option value="">Select an option</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Google Search">Google Search</option>
+                <option value="Friend">Friend</option>
+                <option value="Event">Event</option>
+                <option value="Other">Other</option>
+              </select>
+              {errors.knownBy && (
+                <p className="text-red-500 text-xs mt-1">{errors.knownBy}</p>
+              )}
+            </motion.div>
+
+            <motion.div
+              className="w-full"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <label className="text-sky-200 text-sm mb-1 block">
+                Requested Services
+              </label>
+              <select
+                name="requestedServices"
+                value={form.requestedServices}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-accent"
+              >
+                <option value="">Select a service</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Mobile App">Mobile App</option>
+                <option value="UI/UX Design">UI/UX Design</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Other">Other</option>
+              </select>
+              {errors.requestedServices && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.requestedServices}
+                </p>
+              )}
+            </motion.div>
+          </div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -204,7 +299,9 @@ const ContactForm = () => {
             whileTap={{ scale: 0.98 }}
           >
             {loading ? (
-              <span className="flex items-center gap-2 animate-pulse">Sending...</span>
+              <span className="flex items-center gap-2 animate-pulse">
+                Sending...
+              </span>
             ) : (
               <>
                 <span>Send Message</span>
