@@ -10,10 +10,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import dynamic from 'next/dynamic';
-
-const MarkdownEditor = dynamic(() => import('react-markdown-editor-lite'), { ssr: false });
-import 'react-markdown-editor-lite/lib/index.css';
 
 const Page = () => {
   const [posts, setPosts] = useState([]);
@@ -149,12 +145,7 @@ const Page = () => {
               value={editingPost?.title || ''}
               onChange={(e) => setEditingPost((p) => ({ ...p, title: e.target.value }))}
             />
-            <MarkdownEditor
-              value={editingPost?.body || ''}
-              style={{ height: '300px' }}
-              onChange={({ text }) => setEditingPost((p) => ({ ...p, body: text }))}
-              config={{ view: { menu: true, md: true, html: true }, canView: ['menu', 'md', 'html'] }}
-            />
+
             <DialogFooter className="mt-4 flex justify-end gap-2">
               <Button onClick={() => handleSave(editingPost)}>Save</Button>
               <Button variant="outline" onClick={() => setEditingPost(null)}>Cancel</Button>
