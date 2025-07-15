@@ -27,7 +27,6 @@ const ContactPage = () => {
         className="object-cover sticky top-0 z-0"
       />
 
-      {/* المقدمة */}
       <div className="  w-full px-5 z-10 text-center">
         <h2 className="text-white text-3xl sm:text-4xl font-bold">
           Let’s build something amazing together
@@ -38,7 +37,6 @@ const ContactPage = () => {
         </p>
       </div>
 
-      {/* الفورم والمعلومات */}
       <div className="flex lg:flex-row flex-col justify-center w-full xl:w-[90% gap-2 z-1 m-9">
         <div className="w-full lg:w-1/3 bg- rounded-4xl border-t border-l border-primary shadow-[-9px_-9px_15px_#3B82F6]">
           <Info />
