@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="relative w-full border-t border-primary px-4 sm:px-6 lg:px-12 pt-10 pb-6 "
+      className="relative w-full border-t border-primary px-4 sm:px-6 lg:px-12 pt-10 pb-6"
     >
       <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-10">
         {/* Logo and Info */}

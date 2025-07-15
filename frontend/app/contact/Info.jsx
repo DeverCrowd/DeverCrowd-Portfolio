@@ -1,4 +1,5 @@
-import H1 from "../ui/H1";
+'use client'
+import H1 from "@/components/ui/H1";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { informations, socials } from "@/data/static/contact";
@@ -8,13 +9,12 @@ const Info = () => {
       <H1 title="contact info" />
 
       <div className="w-[90%] flex items-center justify-center flex-col py-9">
-
         <motion.div
           className="flex flex-col w-[90%]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{once:true}}
+          viewport={{ once: true }}
         >
           {informations.map((info, i) => (
             <motion.div
@@ -42,9 +42,11 @@ const Info = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{once:true}}
+          viewport={{ once: true }}
         >
-          <p className="text-sky-200 text-sm uppercase tracking-widest">Find us on</p>
+          <p className="text-sky-200 text-sm uppercase tracking-widest">
+            Find us on
+          </p>
 
           <div className="flex gap-3 flex-wrap items-center justify-center">
             {socials.map((social, i) => (

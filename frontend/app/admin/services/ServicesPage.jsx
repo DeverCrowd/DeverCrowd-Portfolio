@@ -5,7 +5,7 @@ import {
   useTransform,
 } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import Card from "./Card";
+import Card from "../../services/Card";
 import Cube from "../ui/Cube";
 import H1 from "../ui/H1";
 

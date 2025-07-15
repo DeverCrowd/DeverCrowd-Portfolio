@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import NotFound from "../not-found";
 
 const DashboardLayout = ({ children }) => {
   const navigation = [
@@ -24,7 +25,11 @@ const DashboardLayout = ({ children }) => {
   ];
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
-
+return(
+  <>
+  <NotFound/>
+  </>
+)
   return (
     <div className="min-h-screen bg-gray-800">
       {/* Sidebar */}
@@ -64,10 +69,10 @@ const DashboardLayout = ({ children }) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-medium">email</span>
+                  <span className="text-sm font-medium">photo</span>
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-medium">plaplapla</p>
+                  <p className="text-sm font-medium">email</p>
                 </div>
               </div>
               <Button variant="ghost" size="sm">

@@ -1,6 +1,5 @@
 'use client'
-
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState  } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Card, CardContent, CardDescription, CardHeader, CardTitle,
@@ -12,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-const PageContent = () => {
+const Page = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -202,12 +201,4 @@ const PageContent = () => {
   );
 };
 
-const PageWrapper = () => {
-  return (
-    <Suspense fallback={<div className="p-6 text-center text-muted-foreground">Loading page...</div>}>
-      <PageContent />
-    </Suspense>
-  );
-};
-
-export default PageWrapper;
+export default Page;

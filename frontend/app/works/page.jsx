@@ -24,7 +24,7 @@ const page = () => {
   };
   return (
     <>
-    <Header />
+      <Header />
       <section className="min-h-screen px-4 xl:px-20 py-20 text-white bg-[url('/bgs/bg15.webp')] bg-cover bg-center bg-no-repeat bg-blend-overlay bg-gradient-to-br from-[#0c45a0]/90 to-[#091d3a]/90">
         <div className="max-w-[1440px] mx-auto flex flex-col xl:flex-row gap-12 items-start">
           {/* Slider Section */}
@@ -56,34 +56,34 @@ const page = () => {
                       fill
                       className="object-cover transition-transform group-hover:scale-105 duration-500"
                     />
+                    {(project.live || project.github) && (
+                      <div className="absolute top-0 z-50 flex items-center justify-around ">
+                        {project.live && (
+                          <Link
+                            href={project.live}
+                            target="_blank"
+                            className="flex gap-3 items-center  px-6 py-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
+                          >
+                            <BsArrowUpRight className="text-2xl" />
+                            Live
+                          </Link>
+                        )}
+                        {project.github && (
+                          <Link
+                            href={project.github}
+                            target="_blank"
+                            className="flex gap-3 items-center px-6 py-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
+                          >
+                            <BsGithub className="text-2xl" />
+                            GitHub
+                          </Link>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-            {(project.live || project.github) && (
-              <div className="flex items-center justify-around mt-15">
-                {project.live && (
-                  <Link
-                    href={project.live}
-                    target="_blank"
-                    className="flex gap-3 items-center  px-6 py-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
-                  >
-                    <BsArrowUpRight className="text-2xl" />
-                    Live
-                  </Link>
-                )}
-                {project.github && (
-                  <Link
-                    href={project.github}
-                    target="_blank"
-                    className="flex gap-3 items-center px-6 py-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
-                  >
-                    <BsGithub className="text-2xl" />
-                    GitHub
-                  </Link>
-                )}
-              </div>
-            )}
           </div>
 
           {/* Details Section */}
