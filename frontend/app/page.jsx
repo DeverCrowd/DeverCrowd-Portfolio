@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <motion.section
       id="home"
-      className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-10"
+      className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-10 pt-10"
     >
       <Image
         alt="Background"
