@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import Link from "next/link";
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaQuestionCircle } from "react-icons/fa";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { ClipLoader } from "react-spinners";
@@ -18,13 +18,13 @@ const HomePage = () => {
   return (
     <motion.section
       id="home"
-      className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-10 pt-10"
+      className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-10"
     >
       <Image
         alt="Background"
         src="/bgs/bg13.webp"
         fill
-        priority 
+        priority
         quality={100}
         className="object-cover -z-10"
       />
@@ -68,17 +68,31 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-        <Link
-          href="#contact"
-          className="group flex gap-4 border-t border-b rounded-full items-center w-[200px] sm:w-[250px] shadow-lg shadow-accent hover:shadow-primary hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm"
-        >
-          <div className="items-center justify-center rounded-full py-3 text-2xl px-5 bg-primary group-hover:px-8 transition-all duration-300">
-            <FaEnvelope />
-          </div>
-          <div className="text-sm lg:text-lg group-hover:text-primary transition-all duration-300">
-            Book A Call
-          </div>
-        </Link>
+        <div className="flex flex-col items-center gap-1">
+          <Link
+            href="/about"
+            className=" group flex gap-4 border-t border-b rounded-full justify-center items-center w-[170px] sm:w-[200px] shadow-lg shadow-accent hover:shadow-red-500 hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm"
+          >
+            <div className="items-center justify-center rounded-full py-3 text-2xl  transition-all duration-300">
+              <FaQuestionCircle />
+            </div>
+            <div className="text-sm lg:text-lg group-hover:text-red-500 transition-all duration-300">
+              Who We Are?
+            </div>
+          </Link>
+          Or
+          <Link
+            href="/contact"
+            className="group flex gap-4 border-t border-b rounded-full items-center w-[200px] sm:w-[250px] shadow-lg shadow-accent hover:shadow-primary hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm"
+          >
+            <div className="items-center justify-center rounded-full py-3 text-2xl px-5 bg-primary group-hover:px-8 transition-all duration-300">
+              <FaEnvelope />
+            </div>
+            <div className="text-sm lg:text-lg group-hover:text-primary transition-all duration-300">
+              Book A Call
+            </div>
+          </Link>
+        </div>
       </div>
     </motion.section>
   );

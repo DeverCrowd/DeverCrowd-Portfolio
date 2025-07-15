@@ -45,7 +45,7 @@ export const vmc = [
 ];
 
 export const whoweare = {
-  title: "Who We Are?!",
+  title: "Who We Are?",
   description: (
     <>
       At <span className="text-primary font-semibold">DeverCrowd</span>, we're
