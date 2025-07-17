@@ -23,6 +23,7 @@ import Footer from "@/components/Footer";
 import { FaArrowAltCircleRight, FaEnvelope } from "react-icons/fa";
 import Link from "next/link";
 import Lenis from "lenis";
+import FlyingDots from "@/components/ui/FlyingDots";
 
 const page = () => {
   const swiperRef = useRef(null);
@@ -41,7 +42,8 @@ const page = () => {
         className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-20 "
         id="about"
       >
-        {/* <Spotlight /> */}
+        <FlyingDots />
+        <Spotlight />
 
         <div className="[mask-image:linear-gradient(to_top,transparent,white_20%,white_100%,transparent)] min-h-screen bg-[#0a0f1c] flex flex-col items-center justify-center px-4 py-10 w-full">
           {/* العنوان مع اللمبة العلوية */}

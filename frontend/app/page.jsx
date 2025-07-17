@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { ClipLoader } from "react-spinners";
 import Image from "next/image";
+import FlyingDots from "@/components/ui/FlyingDots";
 const CountUp = dynamic(() => import("@/components/ui/CountUp"), {
   loading: () => (
     <div className="flex justify-center items-center h-40">
@@ -28,6 +29,7 @@ const HomePage = () => {
         quality={100}
         className="object-cover -z-10"
       />
+      <FlyingDots />
       <div className="flex flex-col items-center justify-center w-full gap-9 sm:p-16 p-4 z-1">
         <h1 className="text-white lg:text-6xl text-4xl font-extrabold text-center xl:w-[60%] w-[100%]">
           Grow <span className="text-primary">Faster</span> With Smarter Digital

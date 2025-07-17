@@ -8,6 +8,8 @@ import H1 from "../../components/ui/H1";
 import { services } from "@/data/static/services";
 import Footer from "@/components/Footer";
 import Lenis from "lenis";
+import FlyingDots from "@/components/ui/FlyingDots";
+import { Spotlight } from "@/components/ui/spotlight-new";
 
 const ServicesPage = () => {
   const section = useRef(null);
@@ -61,6 +63,8 @@ const ServicesPage = () => {
         className="flex flex-col justify-start w-full h-[400vh] lg:h-[600vh] z-30 backdrop-brightness-100"
         id="services"
       >
+        <FlyingDots />
+        <Spotlight />
         <div className="flex flex-col items-center justify-start w-full h-full p-20">
           <H1 title="Your Growth Toolkit" />
           <p className="text-white/80 text-lg sm:text-xl max-w-3xl text-center lg:text-start mb-6">
