@@ -43,7 +43,7 @@ const page = () => {
         id="about"
       >
         <FlyingDots />
-        <Spotlight />
+        {/* <Spotlight /> */}
 
         <div className="[mask-image:linear-gradient(to_top,transparent,white_20%,white_100%,transparent)] min-h-screen bg-[#0a0f1c] flex flex-col items-center justify-center px-4 py-10 w-full">
           {/* العنوان مع اللمبة العلوية */}
