@@ -46,7 +46,7 @@ const HomePage = () => {
             {[
               { to: 11, label: "Projects" },
               { to: 9, label: "Customer" },
-              { to: 5, label: "Experience" },
+              // { to: 5, label: "Experience" },
               { to: 3, label: "Industry" },
             ].map(({ to, label }, i) => (
               <div
