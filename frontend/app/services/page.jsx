@@ -10,8 +10,8 @@ import Footer from "@/components/Footer";
 import Lenis from "lenis";
 import FlyingDots from "@/components/ui/FlyingDots";
 import { Spotlight } from "@/components/ui/spotlight-new";
-import { FaArrowAltCircleRight } from "react-icons/fa";
 import Link from "next/link";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const ServicesPage = () => {
   const section = useRef(null);
@@ -60,25 +60,27 @@ const ServicesPage = () => {
 
   return (
     <>
+      <div className="flex flex-col h-screen items-center justify-center px-10">
+        <Spotlight />
+        <FlyingDots />
+        <H1 title="Your Growth Toolkit" />
+        <p className="text-white/80 text-lg sm:text-xl max-w-3xl text-center lg:text-start mb-6">
+          Discover the tools and services designed to accelerate your digital
+          journey — crafted for impact, built for growth.
+        </p>
+      </div>
       <motion.section
         ref={section}
-        className="flex flex-col justify-center items-center w-full z-30 backdrop-brightness-100"
+        className="flex flex-col justify-center items-center w-full lg:h-[700vh] z-30 backdrop-brightness-100  "
         id="services"
       >
-        <FlyingDots />
-        <Spotlight />
-        <div className="flex flex-col items-center justify-start w-full h-full py-20 px-10">
-          <H1 title="Your Growth Toolkit" />
-          <p className="text-white/80 text-lg sm:text-xl max-w-3xl text-center lg:text-start mb-6">
-            Discover the tools and services designed to accelerate your digital
-            journey — crafted for impact, built for growth.
-          </p>
-          <div className="hidden lg:flex flex-col absolute items-center justify-start mt-0 h-[95%] w-[100%] pb-50 z-50 ">
+        <div className="flex flex-col items-center justify-start w-full h-full">
+          <div className="hidden lg:flex flex-col absolute items-center justify-start mt-50 h-[95%] w-[100%] pb-25 z-50 ">
             <Cube
               cubeSize={cubeSize}
               style={{
                 position: "sticky",
-                top: 300,
+                top: "30%",
                 x: xCube,
                 rotateY: rotateYCube,
                 rotateX: rotateXCube,
@@ -86,7 +88,7 @@ const ServicesPage = () => {
             />
           </div>
 
-          <div className="flex flex-col relative items-center lg:items-start justify-start h-[95%] w-[100%] ">
+          <div className="flex flex-col relative lg:absolute items-center lg:items-start justify-start h-[100%] lg:mt-0 w-[100%] lg:pb-50 ">
             {services.map((service, i) => {
               return (
                 <Card key={i} i={i} progress={scrollYProgress} {...service} />
@@ -96,10 +98,10 @@ const ServicesPage = () => {
         </div>
         <Link
           href="/works"
-          className="group flex gap-4 border-t border-b rounded-full justify-center items-center w-[300px]  shadow-lg shadow-accent hover:shadow-red-500 hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm my-9 z-50"
+          className=" group flex gap-4 border-t border-b rounded-full justify-center items-center  w-[300px] shadow-lg shadow-accent hover:shadow-red-500 hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm mb-9"
         >
           <div className="text-sm  group-hover:text-red-500 transition-all duration-300">
-            Checkout Some of Our Works?
+            Chekout Some of Our Works
           </div>
           <div className="items-center justify-center rounded-full py-3 text-2xl  transition-all duration-300">
             <FaArrowAltCircleRight />

@@ -57,14 +57,14 @@ const Card = ({ icon, text, color, i, darkColor, progress,title }) => {
         opacity,
         boxShadow: `8px 8px 8px 0px ${color},  -8px -8px 8px 0px ${color}`,
         position: "sticky",
-        top: isUnder24 ? 200 + i * 50 : 250,
-        left: isUnder24 ? "0%" : 0,
+        top: isUnder24 ? 150 + i * 50 : "30%",
+        left: isUnder24 ? "0%" : "0%",
         zIndex: isUnder24 ? i + 50 : i,
         width: cardWidth,
         height: cardHeight,
         
       }}
-      className="rounded-[2rem] p-6 lg:p-8 flex flex-col items-center justify-around border border-primary backdrop-blur-3xl bg-[radial-gradient(circle_at_center,_#0A0F2C,_#000000)] mt-50 lg:m-0"
+      className="rounded-[2rem] p-6 lg:p-8 flex flex-col items-center justify-around border border-primary backdrop-blur-3xl bg-[radial-gradient(circle_at_center,_#0A0F2C,_#000000)] m-50 lg:m-0"
     >
       <h1 className="text-2xl font-extrabold">
         {title}
