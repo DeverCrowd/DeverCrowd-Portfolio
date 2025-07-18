@@ -87,7 +87,7 @@ const ServicesPage = () => {
               }}
             />
           </div>
-
+ 
           <div className="flex flex-col relative lg:absolute items-center lg:items-start justify-start h-[100%] lg:mt-0 w-[100%] lg:pb-50 ">
             {services.map((service, i) => {
               return (
