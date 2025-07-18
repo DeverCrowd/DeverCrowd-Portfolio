@@ -20,7 +20,11 @@ import testimonials from "@/data/dynamic/testimonials";
 
 import { vmc, whoweare } from "@/data/static/about";
 import Footer from "@/components/Footer";
-import { FaArrowAltCircleRight, FaEnvelope } from "react-icons/fa";
+import {
+  FaArrowAltCircleRight,
+  FaEnvelope,
+  FaQuestionCircle,
+} from "react-icons/fa";
 import Link from "next/link";
 import Lenis from "lenis";
 import FlyingDots from "@/components/ui/FlyingDots";
@@ -39,7 +43,7 @@ const page = () => {
   return (
     <>
       <motion.section
-        className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-20 "
+        className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-20 py-10"
         id="about"
       >
         <FlyingDots />
@@ -92,12 +96,22 @@ const page = () => {
             </div>
           ))}
         </motion.div>
-
+        <Link
+          href="/services"
+          className=" group flex gap-4 border-t border-b rounded-full justify-center items-center w-[190px] sm:w-[230px] shadow-lg shadow-accent hover:shadow-red-500 hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm my-9"
+        >
+          <div className="text-sm lg:text-lg group-hover:text-red-500 transition-all duration-300">
+            What We Offer?
+          </div>
+          <div className="items-center justify-center rounded-full py-3 text-2xl  transition-all duration-300">
+            <FaArrowAltCircleRight />
+          </div>
+        </Link>
         <div
           id="swiper"
-          className="w-full relative border-primary [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)] mt-20 "
+          className="w-full relative border-primary [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)] border"
         >
-          <H1 title="what client said" />
+          <H1 title="what clients said" />
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
             onSwiper={(swiper) => {

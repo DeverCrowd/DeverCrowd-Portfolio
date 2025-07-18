@@ -64,7 +64,7 @@ const Card = ({ icon, text, color, i, darkColor, progress,title }) => {
         height: cardHeight,
         
       }}
-      className="rounded-[2rem] p-6 lg:p-8 flex flex-col items-center justify-around border border-primary backdrop-blur-3xl bg-[radial-gradient(circle_at_center,_#0A0F2C,_#000000)] m-50 lg:m-0"
+      className="rounded-[2rem] p-6 lg:p-8 flex flex-col items-center justify-around border border-primary backdrop-blur-3xl bg-[radial-gradient(circle_at_center,_#0A0F2C,_#000000)] mt-50 lg:m-0"
     >
       <h1 className="text-2xl font-extrabold">
         {title}

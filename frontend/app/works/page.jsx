@@ -49,20 +49,21 @@ const page = () => {
             >
               {projects.map((project, index) => (
                 <SwiperSlide key={index}>
-                  <div className="relative group h-[300px] xl:h-full rounded-3xl overflow-hidden shadow-lg">
+                  <div className="relative group h-[300px] xl:h-full rounded-3xl overflow-hidden shadow-lg z-49">
                     <Image
                       src={project.pic}
                       alt={project.title}
                       fill
                       className="object-cover transition-transform group-hover:scale-105 duration-500"
                     />
+                  </div>
                     {(project.live || project.github) && (
-                      <div className="absolute top-0 z-50 flex items-center justify-around ">
+                      <div className="absolute bottom-0 z-50 flex items-center justify-around ">
                         {project.live && (
                           <Link
                             href={project.live}
                             target="_blank"
-                            className="flex gap-3 items-center  px-6 py-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
+                            className="flex gap-3 items-center p-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
                           >
                             <BsArrowUpRight className="text-2xl" />
                             Live
@@ -72,7 +73,7 @@ const page = () => {
                           <Link
                             href={project.github}
                             target="_blank"
-                            className="flex gap-3 items-center px-6 py-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
+                            className="flex gap-3 items-center p-3 bg-[#0c45a0] hover:bg-[#1860d0] text-white rounded-2xl text-lg font-semibold shadow-lg transition-all w-fit"
                           >
                             <BsGithub className="text-2xl" />
                             GitHub
@@ -80,7 +81,6 @@ const page = () => {
                         )}
                       </div>
                     )}
-                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
