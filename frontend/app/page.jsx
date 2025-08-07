@@ -19,7 +19,7 @@ const HomePage = () => {
   return (
     <motion.section
       id="home"
-      className="flex justify-center items-center w-full overflow-hidden min-h-screen select-none z-10 pt-20"
+      className="flex justify-center items-center w-full overflow-hidden min-h-screen  z-10 pt-20"
     >
       <Image
         alt="Background"

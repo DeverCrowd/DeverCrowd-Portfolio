@@ -43,7 +43,7 @@ const page = () => {
   return (
     <>
       <motion.section
-        className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen select-none z-20 py-10"
+        className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen z-20 py-10"
         id="about"
       >
         <FlyingDots />
