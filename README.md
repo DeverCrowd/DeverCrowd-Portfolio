@@ -96,40 +96,6 @@ Database (MongoDB with Mongoose)
     │
     └── README.md
 
-------------------------------------------------------------------------
-
-## 🔑 API Endpoints (Sample)
-
-### Authentication
-
--   `POST /api/auth/login`
--   `POST /api/auth/register`
-
-### Services
-
--   `GET /api/services`
--   `POST /api/services`
--   `PUT /api/services/:id`
--   `DELETE /api/services/:id`
-
-### Projects
-
--   `GET /api/projects`
--   `POST /api/projects`
--   `PUT /api/projects/:id`
--   `DELETE /api/projects/:id`
-
-### Blog
-
--   `GET /api/blog`
--   `POST /api/blog`
--   `PUT /api/blog/:id`
--   `DELETE /api/blog/:id`
-
-### Contact Messages
-
--   `GET /api/messages`
--   `DELETE /api/messages/:id`
 
 ------------------------------------------------------------------------
 
