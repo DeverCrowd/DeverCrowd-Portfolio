@@ -77,28 +77,6 @@ Database (MongoDB with Mongoose)
 
 ------------------------------------------------------------------------
 
-## 📂 Project Structure
-
-    DeverCrowd/
-    │
-    ├── backend/
-    │   ├── controllers/
-    │   ├── routes/
-    │   ├── models/
-    │   ├── middleware/
-    │   └── config/
-    │
-    ├── frontend/
-    │   ├── components/
-    │   ├── pages/
-    │   ├── services/
-    │   └── styles/
-    │
-    └── README.md
-
-
-------------------------------------------------------------------------
-
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
