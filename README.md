@@ -77,48 +77,6 @@ Database (MongoDB with Mongoose)
 
 ------------------------------------------------------------------------
 
-## 🚀 Getting Started
-
-### 1️⃣ Clone the Repository
-
-``` bash
-git clone https://github.com/yourusername/devercrowd.git
-cd devercrowd
-```
-
-------------------------------------------------------------------------
-
-### 2️⃣ Backend Setup
-
-``` bash
-cd backend
-npm install
-```
-
-Create a `.env` file inside the backend folder:
-
-    PORT=5000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_secret_key
-
-Run the development server:
-
-``` bash
-npm run dev
-```
-
-------------------------------------------------------------------------
-
-### 3️⃣ Frontend Setup
-
-``` bash
-cd frontend
-npm install
-npm run dev
-```
-
-------------------------------------------------------------------------
-
 ## 🔒 Security Features
 
 -   Password hashing using bcrypt
