@@ -1,7 +1,7 @@
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Providers } from "@/components/Providers";
+import { MarketingShell } from "@/components/MarketingShell";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -11,16 +11,23 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "DeverCrowd",
-  description: "DeverCrowd Built this site for empowering Web development",
+  title: {
+    default: "DeverCrowd",
+    template: "%s · DeverCrowd",
+  },
+  description:
+    "DeverCrowd builds high-performing websites and mobile apps that solve real problems and grow your business.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="font-code selection:bg-gray-950 selection:text-white">
-        <Header />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${jetbrainsMono.variable} min-h-screen bg-background font-code text-foreground antialiased`}
+      >
+        <Providers>
+          <MarketingShell>{children}</MarketingShell>
+        </Providers>
       </body>
     </html>
   );

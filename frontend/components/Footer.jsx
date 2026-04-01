@@ -1,51 +1,85 @@
 import Logo from "./Logo";
 import Link from "next/link";
 
-const Footer = () => {
+const siteLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/works", label: "Works" },
+  { href: "/contact", label: "Contact" },
+];
+
+const socialLinks = [
+  { href: "https://github.com/DeverCrowd", label: "GitHub" },
+  { href: "https://www.instagram.com/devercrowd/", label: "Instagram" },
+  { href: "https://www.tiktok.com/@devercrowd.com", label: "TikTok" },
+  {
+    href: "https://www.facebook.com/profile.php?id=61577937253222",
+    label: "Facebook",
+  },
+  { href: "https://www.linkedin.com/company/devercrowd/", label: "LinkedIn" },
+];
+
+export default function Footer() {
   return (
     <footer
       id="footer"
-      className="relative w-full border-t border-primary px-4 sm:px-6 lg:px-12 pt-10 pb-6"
+      className="relative w-full border-t border-border bg-card/40 px-4 pb-10 pt-12 backdrop-blur-sm sm:px-6 lg:px-12"
     >
-      <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-10">
-        {/* Logo and Info */}
-        <div className="relative flex flex-col items-center lg:items-start w-full lg:w-1/2 text-center lg:text-left">
-          {/* Logo خلفية شفافة أو تأثير بصري */}
-          <div className="relative">
-            <Logo width={1000} height={159} className="opacity-10" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:translate-x-0 lg:left-12 lg:top-10">
-              <p className="font-extrabold text-2xl md:text-3xl xl:text-5xl">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-between">
+        <div className="relative flex w-full flex-col items-center text-center lg:w-1/2 lg:items-start lg:text-left">
+          <div className="relative w-full max-w-md">
+            <Logo
+              width={400}
+              height={64}
+              className="mx-auto opacity-[0.08] lg:mx-0"
+              priority={false}
+            />
+            <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 lg:left-0 lg:translate-x-0">
+              <p className="text-2xl font-extrabold text-foreground md:text-3xl xl:text-4xl">
                 Dever<span className="text-primary">Crowd</span>
               </p>
-              <p className="text-white/60 text-sm mt-2">©2025 Dever Crowd Ltd.</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                © {new Date().getFullYear()} Dever Crowd Ltd. All rights reserved.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Links */}
-        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row justify-center lg:justify-center lg:gap-60 gap-10 p-5">
-          {/* Site Links */}
-          <div className="flex flex-col items-center sm:items-start gap-2">
-            <h3 className="pb-3 font-semibold text-white">SITE</h3>
-            <Link href="#home" className="text-white/50 hover:text-primary transition">Home</Link>
-            <Link href="#about" className="text-white/50 hover:text-primary transition">About</Link>
-            <Link href="#service" className="text-white/50 hover:text-primary transition">Service</Link>
-            <Link href="#works" className="text-white/50 hover:text-primary transition">Works</Link>
+        <div className="flex w-full max-w-lg flex-col justify-center gap-10 sm:flex-row sm:gap-16 lg:w-1/2 lg:justify-end">
+          <div className="flex flex-col items-center gap-2 sm:items-start">
+            <h3 className="pb-1 text-sm font-semibold uppercase tracking-wider text-foreground">
+              Site
+            </h3>
+            {siteLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-sm text-muted-foreground transition hover:text-primary"
+              >
+                {label}
+              </Link>
+            ))}
           </div>
 
-          {/* Social Links */}
-          <div className="flex flex-col items-center sm:items-start gap-2">
-            <h3 className="pb-3 font-semibold text-white">SOCIAL</h3>
-            <Link href="https://github.com/DeverCrowd" className="text-white/50 hover:text-primary transition">GitHub</Link>
-            <Link href="https://www.instagram.com/devercrowd/" className="text-white/50 hover:text-primary transition">Instagram</Link>
-            <Link href="https://www.tiktok.com/@devercrowd.com" className="text-white/50 hover:text-primary transition">TikTok</Link>
-            <Link href="https://www.facebook.com/profile.php?id=61577937253222" className="text-white/50 hover:text-primary transition">Facebook</Link>
-            <Link href="https://www.linkedin.com/company/devercrowd/" className="text-white/50 hover:text-primary transition">LinkedIn</Link>
+          <div className="flex flex-col items-center gap-2 sm:items-start">
+            <h3 className="pb-1 text-sm font-semibold uppercase tracking-wider text-foreground">
+              Social
+            </h3>
+            {socialLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground transition hover:text-primary"
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,16 +1,18 @@
-'use client'
+"use client";
+
 import H1 from "@/components/ui/H1";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { informations, socials } from "@/data/static/contact";
+
 const Info = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <H1 title="contact info" />
 
-      <div className="w-[90%] flex items-center justify-center flex-col py-9">
+      <div className="flex w-[90%] flex-col items-center justify-center py-9">
         <motion.div
-          className="flex flex-col w-[90%]"
+          className="flex w-[90%] flex-col"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -19,46 +21,41 @@ const Info = () => {
           {informations.map((info, i) => (
             <motion.div
               key={i}
-              className="w-full flex items-center gap-4 p-4 m-3
-                         rounded-2xl
-                         bg-gradient-to-br from-[#0a0f1c00] to-[#0c1e3b]
-                         text-white
-                         shadow-[0_4px_12px_rgba(0,0,0,0.25)]
-                         border border-sky-900/40
-                         hover:border-sky-500 hover:shadow-xl 
-                         transition-all duration-300"
+              className="m-3 flex w-full items-center gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-md transition-all duration-300 hover:border-primary/40 hover:shadow-lg"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="text-2xl text-sky-400">{info.icon}</div>
-              <div className="text-sky-200">{info.value}</div>
+              <div className="text-2xl text-primary">{info.icon}</div>
+              <div className="text-muted-foreground">{info.value}</div>
             </motion.div>
           ))}
         </motion.div>
 
-        <div className="border-t border-white/10 m-6 w-[70%]" />
+        <div className="m-6 w-[70%] border-t border-border" />
 
         <motion.div
-          className="flex flex-col items-center gap-4 w-[90%]"
+          className="flex w-[90%] flex-col items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <p className="text-sky-200 text-sm uppercase tracking-widest">
+          <p className="text-sm uppercase tracking-widest text-muted-foreground">
             Find us on
           </p>
 
-          <div className="flex gap-3 flex-wrap items-center justify-center">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             {socials.map((social, i) => (
               <motion.div
                 key={i}
-                className="p-3 bg-[#0c1e3b] rounded-full
-                           shadow-[0_4px_10px_rgba(0,0,0,0.3)]
-                           hover:bg-sky-700 hover:scale-110 
-                           transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
+                className="rounded-full bg-muted p-3 shadow transition-all duration-300 hover:scale-110 hover:bg-primary/20"
+                whileHover={{ scale: 1.08 }}
               >
-                <Link href={social.link} className="text-sky-400 text-2xl">
+                <Link
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl text-primary"
+                >
                   {social.icon}
                 </Link>
               </motion.div>

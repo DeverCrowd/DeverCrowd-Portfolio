@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState  } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Card, CardContent, CardDescription, CardHeader, CardTitle,
@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-const Page = () => {
+const BlogsAdminContent = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -201,4 +201,19 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-6">
+          <div className="text-center">
+            <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-primary" />
+            <p className="mt-4 text-muted-foreground">Loading…</p>
+          </div>
+        </div>
+      }
+    >
+      <BlogsAdminContent />
+    </Suspense>
+  );
+}

@@ -1,52 +1,49 @@
-'use client'
+"use client";
+
 import Image from "next/image";
 import Form from "./Form";
 import Info from "./Info";
-import { useEffect } from "react";
-import Lenis from "lenis";
+import { useLenis } from "@/hooks/useLenis";
 
-const ContactPage = () => {
-   useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  });
+export default function ContactPage() {
+  useLenis();
+
   return (
     <section
-      className="relative flex flex-col items-center justify-center w-full min-h-[100vh] py-10 px-5 mt-9"
+      className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-5 py-12"
       id="contact"
     >
-      <Image
-        src="/bgs/bg4.webp"
-        fill
-        quality={100}
-        alt="bg"
-        className="object-cover sticky top-0 z-0"
-      />
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <Image
+          src="/bgs/bg4.webp"
+          fill
+          sizes="100vw"
+          quality={85}
+          alt=""
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
+      </div>
 
-      <div className="  w-full px-5 z-10 text-center">
-        <h2 className="text-white text-3xl sm:text-4xl font-bold">
+      <div className="relative z-10 w-full px-4 text-center">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
           Let’s build something amazing together
         </h2>
-        <p className="text-white/80 max-w-2xl mx-auto mt-4 text-base sm:text-lg">
-          Have a project in mind or just want to say hello? Fill out the form or
-          reach out directly — we're always excited to hear from you.
+        <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+          Have a project in mind or just want to say hello? Fill out the form or reach out directly —
+          we&apos;re always excited to hear from you.
         </p>
       </div>
 
-      <div className="flex lg:flex-row flex-col justify-center w-full xl:w-[90% gap-2 z-1 m-9">
-        <div className="w-full lg:w-1/3 bg- rounded-4xl border-t border-l border-primary shadow-[-9px_-9px_15px_#3B82F6]">
+      <div className="relative z-10 m-9 flex w-full max-w-7xl flex-col justify-center gap-8 lg:flex-row lg:gap-12">
+        <div className="w-full rounded-3xl border border-border bg-card/40 p-4 shadow-lg backdrop-blur-md lg:w-1/3">
           <Info />
         </div>
-        <div className="w-full lg:w-1/2 rounded-4xl border-b border-r border-primary shadow-[9px_9px_15px_#3B82F6]">
+        <div className="w-full rounded-3xl border border-border bg-card/40 p-4 shadow-lg backdrop-blur-md lg:w-1/2">
           <Form />
         </div>
       </div>
     </section>
   );
-};
-
-export default ContactPage;
+}

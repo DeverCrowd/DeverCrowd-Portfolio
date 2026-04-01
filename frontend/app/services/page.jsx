@@ -1,4 +1,5 @@
 "use client";
+
 import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Card from "./Card";
@@ -6,12 +7,11 @@ import Cube from "../../components/ui/Cube";
 import H1 from "../../components/ui/H1";
 
 import { services } from "@/data/static/services";
-import Footer from "@/components/Footer";
-import Lenis from "lenis";
 import FlyingDots from "@/components/ui/FlyingDots";
 import { Spotlight } from "@/components/ui/spotlight-new";
 import Link from "next/link";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useLenis } from "@/hooks/useLenis";
 
 const ServicesPage = () => {
   const section = useRef(null);
@@ -24,14 +24,8 @@ const ServicesPage = () => {
   const [isLaptop, setIsLaptop] = useState(false);
   const [innerWidth, setInnerWidth] = useState(0);
   const [isUnder24, setIsUnder24] = useState(false);
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  });
+
+  useLenis();
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,22 +54,22 @@ const ServicesPage = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen items-center justify-center px-10">
+      <div className="flex h-screen flex-col items-center justify-center px-10">
         <Spotlight />
         <FlyingDots />
         <H1 title="Your Growth Toolkit" />
-        <p className="text-white/80 text-lg sm:text-xl max-w-3xl text-center lg:text-start mb-6">
-          Discover the tools and services designed to accelerate your digital
-          journey — crafted for impact, built for growth.
+        <p className="mb-6 max-w-3xl text-center text-lg text-muted-foreground sm:text-xl lg:text-start">
+          Discover the tools and services designed to accelerate your digital journey — crafted for
+          impact, built for growth.
         </p>
       </div>
       <motion.section
         ref={section}
-        className="flex flex-col justify-center items-center w-full lg:h-[700vh] z-30 backdrop-brightness-100  "
+        className="z-30 flex w-full flex-col items-center justify-center backdrop-brightness-100 lg:h-[700vh]"
         id="services"
       >
-        <div className="flex flex-col items-center justify-start w-full h-full">
-          <div className="hidden lg:flex flex-col absolute items-center justify-start mt-50 h-[95%] w-[100%] pb-25 z-50 ">
+        <div className="flex h-full w-full flex-col items-center justify-start">
+          <div className="absolute z-50 mt-50 hidden h-[95%] w-[100%] flex-col items-center justify-start pb-25 lg:flex">
             <Cube
               cubeSize={cubeSize}
               style={{
@@ -87,28 +81,23 @@ const ServicesPage = () => {
               }}
             />
           </div>
- 
-          <div className="flex flex-col relative lg:absolute items-center lg:items-start justify-start h-[100%] lg:mt-0 w-[100%] lg:pb-50 ">
-            {services.map((service, i) => {
-              return (
-                <Card key={i} i={i} progress={scrollYProgress} {...service} />
-              );
-            })}
+
+          <div className="relative flex h-[100%] w-[100%] flex-col items-center justify-start lg:absolute lg:mt-0 lg:pb-50 lg:items-start">
+            {services.map((service, i) => (
+              <Card key={service.title ?? i} i={i} progress={scrollYProgress} {...service} />
+            ))}
           </div>
         </div>
         <Link
           href="/works"
-          className=" group flex gap-4 border-t border-b rounded-full justify-center items-center  w-[300px] shadow-lg shadow-accent hover:shadow-red-500 hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm mb-9"
+          className="mb-9 flex w-[min(100%,320px)] items-center justify-center gap-4 rounded-full border border-border bg-card/40 px-4 py-3 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_24px_color-mix(in_srgb,var(--primary)_25%,transparent)]"
         >
-          <div className="text-sm  group-hover:text-red-500 transition-all duration-300">
-            Chekout Some of Our Works
-          </div>
-          <div className="items-center justify-center rounded-full py-3 text-2xl  transition-all duration-300">
-            <FaArrowAltCircleRight />
-          </div>
+          <span className="text-sm transition group-hover:text-primary sm:text-base">
+            Checkout some of our work
+          </span>
+          <FaArrowAltCircleRight className="text-2xl text-primary" />
         </Link>
       </motion.section>
-      <Footer />
     </>
   );
 };

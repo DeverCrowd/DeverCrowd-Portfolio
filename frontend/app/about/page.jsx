@@ -1,8 +1,7 @@
 "use client";
+
 import { motion } from "motion/react";
-import { Spotlight } from "../../components/ui/spotlight-new";
-import { LampContainer } from "../../components/ui/lamp";
-import H1 from "../../components/ui/H1";
+import H1 from "@/components/ui/H1";
 import TestCard from "./TestCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -14,115 +13,86 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import testimonials from "@/data/dynamic/testimonials";
 
 import { vmc, whoweare } from "@/data/static/about";
-import Footer from "@/components/Footer";
-import {
-  FaArrowAltCircleRight,
-  FaEnvelope,
-  FaQuestionCircle,
-} from "react-icons/fa";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import Link from "next/link";
-import Lenis from "lenis";
 import FlyingDots from "@/components/ui/FlyingDots";
+import { useLenis } from "@/hooks/useLenis";
 
-const page = () => {
+export default function AboutPage() {
   const swiperRef = useRef(null);
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  });
+  useLenis();
 
   return (
     <>
       <motion.section
-        className="flex flex-col justify-center items-center w-full overflow-hidden min-h-screen z-20 py-10"
+        className="z-20 flex min-h-screen w-full flex-col items-center justify-center overflow-hidden py-10"
         id="about"
       >
         <FlyingDots />
-        {/* <Spotlight /> */}
 
-        <div className="[mask-image:linear-gradient(to_top,transparent,white_20%,white_100%,transparent)] min-h-screen bg-[#0a0f1c] flex flex-col items-center justify-center px-4 py-10 w-full">
-          {/* العنوان مع اللمبة العلوية */}
+        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-background via-card/30 to-background px-4 py-10 [mask-image:linear-gradient(to_top,transparent,white_20%,white_100%,transparent)]">
           <div className="relative mb-8">
-            {/* الخط الأزرق فوق العنوان */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-blue-600 rounded-full blur-sm"></div>
+            <div className="absolute -top-4 left-1/2 h-1 w-24 -translate-x-1/2 rounded-full bg-primary blur-sm" />
 
-            <h1 className="text-center text-4xl sm:text-5xl md:text-6xl font-extrabold text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.7)]">
+            <h1 className="text-center text-4xl font-extrabold text-primary drop-shadow-[0_0_20px_color-mix(in_srgb,var(--primary)_50%,transparent)] sm:text-5xl md:text-6xl">
               {whoweare.title}
             </h1>
           </div>
 
-          {/* النص الوصفي داخل صندوق */}
-          <div className="bg-[#0d111c] border border-blue-500/20 rounded-xl px-6 py-6 max-w-3xl text-center text-white text-lg md:text-xl leading-relaxed shadow-[0_0_30px_rgba(59,130,246,0.4)]">
+          <div className="max-w-3xl rounded-xl border border-border bg-card/90 px-6 py-6 text-center text-lg leading-relaxed text-foreground shadow-lg md:text-xl">
             <p>{whoweare.description}</p>
           </div>
         </div>
 
-        {/* Vision / Mission / core value */}
-        <motion.div className="w-full max-w-7xl px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <motion.div className="grid w-full max-w-7xl grid-cols-1 items-stretch gap-8 px-4 sm:px-6 md:grid-cols-3">
           {vmc.map((item, i) => (
             <div
               key={i}
-              className="group relative flex flex-col items-center text-center rounded-3xl p-6 bg-gradient-to-b from-white/5 to-white/0 border border-blue-500/20 backdrop-blur-md overflow-hidden transition duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+              className="group relative flex flex-col items-center overflow-hidden rounded-3xl border border-border bg-gradient-to-b from-card to-transparent p-6 text-center backdrop-blur-md transition duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_color-mix(in_srgb,var(--primary)_20%,transparent)]"
             >
-              {/* Glow circle background */}
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[120px] h-[120px] bg-blue-500/10 rounded-full blur-2xl group-hover:scale-110 transition" />
+              <div className="absolute -top-10 left-1/2 h-[120px] w-[120px] -translate-x-1/2 rounded-full bg-primary/10 blur-2xl transition group-hover:scale-110" />
 
-              {/* Icon */}
-              <div className="relative z-10 w-14 h-14 mb-4 flex items-center justify-center rounded-full border border-blue-500/30 bg-white/10 text-blue-400 text-2xl shadow-lg backdrop-blur-sm group-hover:scale-105 transition">
+              <div className="relative z-10 mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-border bg-muted/50 text-2xl text-primary shadow-lg backdrop-blur-sm transition group-hover:scale-105">
                 {item.icon}
               </div>
 
-              {/* Title */}
-              <h3 className="relative z-10 text-xl md:text-2xl font-semibold text-blue-300 tracking-wide mb-2">
+              <h3 className="relative z-10 mb-2 text-xl font-semibold tracking-wide text-foreground md:text-2xl">
                 {item.title}
               </h3>
 
-              {/* Description */}
-              <p className="relative z-10 text-sm md:text-base text-white/90 leading-relaxed font-light tracking-wide">
+              <p className="relative z-10 text-sm font-light leading-relaxed tracking-wide text-muted-foreground md:text-base">
                 {item.desc}
               </p>
 
-              {/* Glow border bottom on hover */}
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+              <span className="absolute bottom-0 left-0 h-[2px] w-full origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/40 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
             </div>
           ))}
         </motion.div>
         <Link
           href="/services"
-          className=" group flex gap-4 border-t border-b rounded-full justify-center items-center w-[190px] sm:w-[230px] shadow-lg shadow-accent hover:shadow-red-500 hover:border-accent transition-all duration-300 hover:backdrop-blur-md backdrop-blur-sm my-9"
+          className="my-9 flex w-[190px] items-center justify-center gap-4 rounded-full border border-border bg-card/50 px-4 py-3 text-sm shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_24px_color-mix(in_srgb,var(--primary)_25%,transparent)] sm:w-[230px] sm:text-lg"
         >
-          <div className="text-sm lg:text-lg group-hover:text-red-500 transition-all duration-300">
-            What We Offer?
-          </div>
-          <div className="items-center justify-center rounded-full py-3 text-2xl  transition-all duration-300">
-            <FaArrowAltCircleRight />
-          </div>
+          <span className="transition group-hover:text-primary">What We Offer?</span>
+          <FaArrowAltCircleRight className="text-2xl text-primary" />
         </Link>
-        <div
-          id="swiper"
-          className="w-full relative border-primary [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)] border"
-        >
+        <div id="swiper" className="relative w-full border-border">
           <H1 title="what clients said" />
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
-            loop={true}
+            loop
             spaceBetween={0}
             pagination={{ dynamicBullets: true }}
             effect="coverflow"
             autoplay={{ delay: 2000, disableOnInteraction: false }}
-            freeMode={true}
+            freeMode
             coverflowEffect={{
               rotate: 50,
               stretch: 0,
@@ -139,7 +109,7 @@ const page = () => {
               },
             }}
             slidesPerView={1}
-            className="h-[300px] rounded-3xl p-9"
+            className="rounded-3xl p-9"
             onMouseEnter={() => swiperRef.current?.autoplay?.stop()}
             onMouseLeave={() => swiperRef.current?.autoplay?.start()}
           >
@@ -151,9 +121,6 @@ const page = () => {
           </Swiper>
         </div>
       </motion.section>
-      <Footer />
     </>
   );
-};
-
-export default page;
+}

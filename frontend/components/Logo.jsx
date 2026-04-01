@@ -1,15 +1,15 @@
 import Image from "next/image";
 
-const Logo = ({ width, height,className }) => {
+export default function Logo({ width, height, className = "", priority = false }) {
   return (
     <Image
       alt="DeverCrowd logo"
       width={width}
       height={height}
       src="/logo.webp"
-      className={`${className}`}
+      className={className}
+      priority={priority}
+      sizes={`${width}px`}
     />
   );
-};
-
-export default Logo;
+}

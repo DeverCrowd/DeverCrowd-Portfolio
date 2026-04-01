@@ -1,9 +1,15 @@
-'use client'
+"use client";
+
 import { useState } from "react";
 import { FiSend, FiCheckCircle } from "react-icons/fi";
 import H1 from "@/components/ui/H1";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { post } from "@/data/api";
+
+const inputClass =
+  "w-full rounded-2xl border border-border bg-background/90 px-4 py-3 text-foreground placeholder:text-muted-foreground transition focus:outline-none focus:ring-2 focus:ring-ring";
+
+const labelClass = "mb-1 block text-sm text-muted-foreground";
 
 const ContactForm = () => {
   const [form, setForm] = useState({
@@ -19,19 +25,13 @@ const ContactForm = () => {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
-  const sanitizeInput = (value) => {
-    const div = document.createElement("div");
-    div.textContent = value;
-    return div.innerHTML;
-  };
+  const [submitError, setSubmitError] = useState("");
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: sanitizeInput(e.target.value),
-    });
-    setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+    setSubmitError("");
   };
 
   const validateForm = () => {
@@ -71,7 +71,7 @@ const ContactForm = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
 
@@ -81,8 +81,10 @@ const ContactForm = () => {
     }
 
     setLoading(true);
+    setSubmitError("");
 
-    post("http://localhost:3001/api/contact", form).then((res) => {
+    try {
+      const res = await post("/api/contact", form);
       if (res.ok) {
         setSuccess(true);
         setForm({
@@ -95,25 +97,29 @@ const ContactForm = () => {
           message: "",
         });
         setErrors({});
-        setTimeout(() => {
-          setSuccess(false);
-        }, 3000);
+        setTimeout(() => setSuccess(false), 4000);
+      } else {
+        setSubmitError(
+          res.data?.message || res.error || "Something went wrong. Please try again."
+        );
       }
-      console.log(res);
+    } catch {
+      setSubmitError("Network error. Please try again.");
+    } finally {
       setLoading(false);
-    });
+    }
   };
 
   return (
     <motion.div
-      className="contact-form w-full mx-auto"
+      className="contact-form mx-auto w-full"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
     >
       <motion.div
-        className="card w-full bg-gradient-to-br from-[#0a0f1c] to-[#0c1e3b] py-8 px-6 sm:px-10 md:px-12 rounded-4xl shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
+        className="card w-full rounded-3xl border border-border bg-card/95 px-6 py-8 shadow-lg sm:px-10 md:px-12"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
@@ -121,22 +127,26 @@ const ContactForm = () => {
       >
         <H1 title="Get in touch" />
 
-        <p className="text-sky-200 text-sm sm:text-base max-w-md">
+        <p className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base">
           Fill out the form and we’ll get back to you shortly.
         </p>
 
         {success && (
           <motion.div
-            className="mt-6 bg-[#0c1e3b]/80 border border-sky-500 text-sky-400 py-3 px-5 rounded-2xl text-sm flex items-center gap-3 shadow-md"
+            className="mt-6 flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/10 px-5 py-3 text-sm text-primary"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
           >
             <FiCheckCircle className="text-xl" />
-            <span className="font-medium tracking-wide">
-              Message sent successfully!
-            </span>
+            <span className="font-medium tracking-wide">Message sent successfully!</span>
           </motion.div>
+        )}
+
+        {submitError && (
+          <p className="mt-4 text-sm text-destructive" role="alert">
+            {submitError}
+          </p>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6 pt-10">
@@ -150,18 +160,20 @@ const ContactForm = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <label className="text-sky-200 text-sm mb-1 block">
-                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                <label className={labelClass} htmlFor={field}>
+                  {field === "email" ? "Email" : "Name"}
                 </label>
                 <input
+                  id={field}
                   type={field === "email" ? "email" : "text"}
                   name={field}
                   value={form[field]}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-sky-800 bg-transparent text-white placeholder-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all rounded-2xl"
+                  autoComplete={field === "email" ? "email" : "name"}
+                  className={inputClass}
                 />
                 {errors[field] && (
-                  <p className="text-red-500 text-xs mt-1">{errors[field]}</p>
+                  <p className="mt-1 text-xs text-destructive">{errors[field]}</p>
                 )}
               </motion.div>
             ))}
@@ -177,17 +189,18 @@ const ContactForm = () => {
                 transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <label className="text-sky-200 text-sm mb-1 block">
-                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                <label className={labelClass} htmlFor={field}>
+                  {field === "phoneNumber" ? "Phone" : "Title"}
                 </label>
                 <input
+                  id={field}
                   type={field === "phoneNumber" ? "tel" : "text"}
                   name={field}
                   value={form[field]}
                   onChange={handleChange}
                   onKeyDown={
                     field === "phoneNumber"
-                      ? (e) => {
+                      ? (ev) => {
                           const allowedKeys = [
                             "Backspace",
                             "ArrowLeft",
@@ -196,19 +209,17 @@ const ContactForm = () => {
                             "Delete",
                             "+",
                           ];
-                          if (
-                            !/[0-9]/.test(e.key) &&
-                            !allowedKeys.includes(e.key)
-                          ) {
-                            e.preventDefault();
+                          if (!/[0-9]/.test(ev.key) && !allowedKeys.includes(ev.key)) {
+                            ev.preventDefault();
                           }
                         }
                       : undefined
                   }
-                  className="w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white placeholder-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
+                  className={inputClass}
+                  autoComplete={field === "phoneNumber" ? "tel" : "organization-title"}
                 />
                 {errors[field] && (
-                  <p className="text-red-500 text-xs mt-1">{errors[field]}</p>
+                  <p className="mt-1 text-xs text-destructive">{errors[field]}</p>
                 )}
               </motion.div>
             ))}
@@ -222,14 +233,15 @@ const ContactForm = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <label className="text-sky-200 text-sm mb-1 block">
+              <label className={labelClass} htmlFor="knownBy">
                 How did you know about us?
               </label>
               <select
+                id="knownBy"
                 name="knownBy"
                 value={form.knownBy}
                 onChange={handleChange}
-                className=" w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-accent"
+                className={`${inputClass} bg-popover text-popover-foreground`}
               >
                 <option value="">Select an option</option>
                 <option value="Social Media">Social Media</option>
@@ -239,7 +251,7 @@ const ContactForm = () => {
                 <option value="Other">Other</option>
               </select>
               {errors.knownBy && (
-                <p className="text-red-500 text-xs mt-1">{errors.knownBy}</p>
+                <p className="mt-1 text-xs text-destructive">{errors.knownBy}</p>
               )}
             </motion.div>
 
@@ -250,14 +262,15 @@ const ContactForm = () => {
               transition={{ duration: 0.5, delay: 0.5 }}
               viewport={{ once: true }}
             >
-              <label className="text-sky-200 text-sm mb-1 block">
+              <label className={labelClass} htmlFor="requestedServices">
                 Requested Services
               </label>
               <select
+                id="requestedServices"
                 name="requestedServices"
                 value={form.requestedServices}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-accent"
+                className={`${inputClass} bg-popover text-popover-foreground`}
               >
                 <option value="">Select a service</option>
                 <option value="Web Development">Web Development</option>
@@ -267,9 +280,7 @@ const ContactForm = () => {
                 <option value="Other">Other</option>
               </select>
               {errors.requestedServices && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.requestedServices}
-                </p>
+                <p className="mt-1 text-xs text-destructive">{errors.requestedServices}</p>
               )}
             </motion.div>
           </div>
@@ -279,30 +290,31 @@ const ContactForm = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <label className="text-sky-200 text-sm mb-1 block">Message</label>
+            <label className={labelClass} htmlFor="message">
+              Message
+            </label>
             <textarea
+              id="message"
               name="message"
-              rows="5"
+              rows={5}
               value={form.message}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-2xl border border-sky-800 bg-transparent text-white placeholder-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all resize-none"
-            ></textarea>
+              className={`${inputClass} resize-none`}
+            />
             {errors.message && (
-              <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+              <p className="mt-1 text-xs text-destructive">{errors.message}</p>
             )}
           </motion.div>
 
           <motion.button
             type="submit"
-            className="w-full py-3 bg-sky-600 hover:bg-sky-500 transition-all duration-300 rounded-2xl text-white font-semibold tracking-wide flex items-center justify-center gap-2 disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 font-semibold tracking-wide text-primary-foreground transition hover:opacity-90 disabled:opacity-50"
             disabled={loading}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: loading ? 1 : 1.01 }}
+            whileTap={{ scale: loading ? 1 : 0.99 }}
           >
             {loading ? (
-              <span className="flex items-center gap-2 animate-pulse">
-                Sending...
-              </span>
+              <span className="flex items-center gap-2 animate-pulse">Sending…</span>
             ) : (
               <>
                 <span>Send Message</span>
