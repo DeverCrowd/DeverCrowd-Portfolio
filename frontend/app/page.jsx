@@ -73,26 +73,6 @@ const HomePage = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center w-full gap-8 px-4 sm:px-16 z-10">
-        {/* Badge */}
-        <motion.div
-          variants={itemVariants}
-          className="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs"
-          style={{
-            border: "1px solid var(--border)",
-            background: "var(--card)",
-            color: "var(--muted-foreground)",
-          }}
-        >
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{
-              background: "var(--primary)",
-              boxShadow: "0 0 8px var(--primary)",
-            }}
-          />
-          Digital Products Studio
-        </motion.div>
-
         {/* Heading */}
         <motion.h1
           variants={itemVariants}

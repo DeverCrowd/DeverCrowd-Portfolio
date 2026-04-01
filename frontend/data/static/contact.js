@@ -13,12 +13,12 @@ export const informations = [
   {
     icon: <FaPhone />,
     key: "Phone",
-    value: "+201002532021",
+    value: "+201030141149",
   },
   {
     icon: <MdMail />,
     key: "Email",
-    value: "devercrowd@gmail.com",
+    value: "swilam.per@gmail.com",
   },
   {
     icon: <FaMapLocationDot />,
