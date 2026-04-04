@@ -86,8 +86,7 @@ export default function AdminEditBlog() {
         body: "",
         likes: [],
         views: 0,
-        featured_image: null,
-        featured_image_url: "",
+        featured_image: "",
     });
     const [errors, setErrors] = useState({});
 
@@ -117,7 +116,7 @@ export default function AdminEditBlog() {
                     body: blog.body || "",
                     likes: blog.likes || [],
                     views: blog.views || 0,
-                    featured_image_url: blog.featured_image || "",
+                    featured_image: blog.featured_image || "",
                 });
             } catch (err) {
                 console.log(err);
