@@ -14,8 +14,9 @@ const pricingRoutes = require("./routes/pricing.route");
 const httpResponse = require("./utils/httpResponse");
 
 const app = express();
-
-// ─── Middleware ───────────────────────────────────────────────────────────────
+console.log("MONGO_URI:", process.env.MONGODB_URI ? "LOADED ✓" : "MISSING ✗");
+console.log("REDIS_URL:", process.env.REDIS_URL ? "LOADED ✓" : "MISSING ✗");
+// ─── Middleware  ───────────────────────────────────────────────────────────────
 app.use(
   cors({
     origin: process.env.ALLOWED_ORIGIN || "http://localhost:3000",
