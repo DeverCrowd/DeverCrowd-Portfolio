@@ -1,12 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import Select from "react-select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { get, put } from "@/data/api";
 import { getAdminSelectStyles } from "@/lib/admin-react-select";
@@ -19,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/ui/RichTextEditor";
 
 const selectStyles = getAdminSelectStyles();
+
 function FormField({ label, children, error }) {
     return (
         <div className="space-y-2">
@@ -28,6 +26,7 @@ function FormField({ label, children, error }) {
         </div>
     );
 }
+
 function TagsInput({ value, onChange, placeholder }) {
     const [inputValue, setInputValue] = useState("");
 
@@ -70,13 +69,14 @@ function TagsInput({ value, onChange, placeholder }) {
         </div>
     );
 }
+
 export default function AdminEditBlog() {
     const params = useParams();
     const router = useRouter();
     const slug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug;
+
     const [blog, setBlog] = useState(null);
     const [loadError, setLoadError] = useState(null);
-    const [submitting, setSubmitting] = useState(false);
     const [form, setForm] = useState({
         title: "",
         subtitle: "",
@@ -86,11 +86,10 @@ export default function AdminEditBlog() {
         body: "",
         likes: [],
         views: 0,
-        featured_image: null,
-        featured_image_url: "",
+        featured_image: null,      // File جديدة أو null
+        featured_image_url: "",    // URL الصورة الحالية من الباك
     });
     const [errors, setErrors] = useState({});
-
 
     useEffect(() => {
         if (!slug) return;
@@ -117,7 +116,8 @@ export default function AdminEditBlog() {
                     body: blog.body || "",
                     likes: blog.likes || [],
                     views: blog.views || 0,
-                    featured_image: blog.featured_image || "",
+                    featured_image: null,                    // دايماً null في البداية
+                    featured_image_url: blog.featured_image || "", // URL الحالي
                 });
             } catch (err) {
                 console.log(err);
@@ -127,11 +127,11 @@ export default function AdminEditBlog() {
 
         return () => { cancelled = true; };
     }, [slug]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm((prev) => ({ ...prev, [name]: value }));
     };
-
 
     const validate = () => {
         const errs = {};
@@ -148,6 +148,7 @@ export default function AdminEditBlog() {
         setErrors(errs);
         return Object.keys(errs).length === 0;
     };
+
     const mutation = useMutation({
         mutationFn: async (formData) => {
             const res = await put(`/api/blogs/${slug}`, formData);
@@ -166,8 +167,6 @@ export default function AdminEditBlog() {
     const handleSubmit = (e, status = "published") => {
         e.preventDefault();
 
-        setForm((prev) => ({ ...prev, status }));
-
         if (!validate()) {
             toast.error("Please fix the highlighted fields");
             return;
@@ -180,13 +179,18 @@ export default function AdminEditBlog() {
         formData.append("status", status);
         formData.append("body", form.body);
         form.tags.forEach((tag) => formData.append("tags[]", tag));
-        if (form.featured_image) {
+
+        // بعت الصورة بس لو File جديدة اتختارت
+        if (form.featured_image instanceof File) {
             formData.append("featured_image", form.featured_image);
         }
+
         mutation.mutate(formData);
     };
+
     if (!blog && !loadError) return <AdminLoader label="Loading blog…" />;
     if (loadError) return <div>{loadError}</div>;
+
     return (
         <div className="space-y-8 p-4 sm:p-6 lg:p-8">
             <AdminPageHeader title="Edit Blog" description="Update blog details" />
@@ -198,44 +202,43 @@ export default function AdminEditBlog() {
                         <CardTitle>Basics</CardTitle>
                         <CardDescription>Title, subtitle, and categorization</CardDescription>
                     </CardHeader>
-
                     <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                        <FormField label="Title" >
+                        <FormField label="Title" error={errors.title}>
                             <Input id="title" name="title" value={form.title} onChange={handleChange} />
                         </FormField>
-                        <FormField label="Subtitle" >
+                        <FormField label="Subtitle" error={errors.subtitle}>
                             <Input id="subtitle" name="subtitle" value={form.subtitle} onChange={handleChange} />
                         </FormField>
-                        <FormField label="Category" >
+                        <FormField label="Category" error={errors.category}>
                             <Input id="category" name="category" value={form.category} onChange={handleChange} />
                         </FormField>
-                        <FormField label="Tags">
+                        <FormField label="Tags" error={errors.tags}>
                             <TagsInput
                                 value={form.tags}
                                 onChange={(arr) => setForm((prev) => ({ ...prev, tags: arr }))}
                                 placeholder="Add tags like JavaScript, Cybersecurity"
                             />
                         </FormField>
-
                     </CardContent>
                 </Card>
-
 
                 {/* CONTENT */}
                 <Card>
                     <CardHeader>
                         <CardTitle>Content</CardTitle>
                     </CardHeader>
-
                     <CardContent className="grid grid-cols-1 gap-6">
-                    <RichTextEditor
+                        <FormField label="Body" error={errors.body}>
+                            <RichTextEditor
                                 value={form.body}
                                 onChange={(html) => setForm((prev) => ({ ...prev, body: html }))}
                                 placeholder="Write your blog post..."
                             />
+                        </FormField>
+
                         <FormField label="Featured Image">
-                            {/* Preview الصورة الحالية */}
-                            {form.featured_image_url && !form.featured_image && (
+                            {/* صورة حالية من الباك */}
+                            {form.featured_image_url && !(form.featured_image instanceof File) && (
                                 <div className="mb-2">
                                     <p className="text-xs text-muted-foreground mb-1">Current image:</p>
                                     <img
@@ -254,8 +257,8 @@ export default function AdminEditBlog() {
                                 }
                             />
 
-                            {/* Preview الصورة الجديدة */}
-                            {form.featured_image && (
+                            {/* صورة جديدة preview */}
+                            {form.featured_image instanceof File && (
                                 <div className="mt-2 flex items-center gap-2">
                                     <img
                                         src={URL.createObjectURL(form.featured_image)}
@@ -283,24 +286,22 @@ export default function AdminEditBlog() {
                     <Button type="button" variant="destructive" onClick={() => router.back()}>
                         Cancel
                     </Button>
-
                     <Button
                         type="button"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                         onClick={(e) => handleSubmit(e, "draft")}
                         className="min-w-[140px] gap-2 bg-muted"
                     >
-                        {mutation.isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                        {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                         Draft blog
                     </Button>
-
                     <Button
                         type="submit"
-                        disabled={mutation.isLoading}
+                        disabled={mutation.isPending}
                         className="min-w-[140px] gap-2"
                     >
-                        {mutation.isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-                        {mutation.isLoading ? "Saving…" : "Publish blog"}
+                        {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                        {mutation.isPending ? "Saving…" : "Publish blog"}
                     </Button>
                 </div>
             </form>

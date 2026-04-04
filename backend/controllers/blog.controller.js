@@ -119,7 +119,7 @@ const modifyBlog = asyncwrapper(async (req, res, next) => {
     status,
     subtitle,
     category,
-    featured_image: req.file ? req.file.path : null,
+    featured_image: req.file ? req.file.path : blog.featured_image,
     tags,
     body,
   };
