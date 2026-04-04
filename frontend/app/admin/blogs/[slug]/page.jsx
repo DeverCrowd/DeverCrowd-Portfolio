@@ -86,7 +86,8 @@ export default function AdminEditBlog() {
         body: "",
         likes: [],
         views: 0,
-        featured_image: "",
+        featured_image: null,
+        featured_image_url: "",
     });
     const [errors, setErrors] = useState({});
 
