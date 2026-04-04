@@ -31,7 +31,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/og-image.png", // 👈 أهم سطر
+        url: "https://www.devercrowd.com/og-image.png", // 👈 أهم سطر
         width: 1200,
         height: 630,
         alt: "DeverCrowd",
