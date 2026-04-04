@@ -55,9 +55,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="color-scheme" content="light dark" />
-      </head>
       <body className={`${jetbrainsMono.variable} min-h-screen font-code text-foreground antialiased`}>
         <Providers>
           <MarketingShell>{children}</MarketingShell>
