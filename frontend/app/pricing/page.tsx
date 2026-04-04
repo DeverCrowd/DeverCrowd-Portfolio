@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useLenis } from "@/hooks/useLenis";
 
 function PlanCard({ plan, index }: { plan: PricingPlan; index: number }) {
-  const hasDiscount = plan.discountPercent && plan.discountPercent > 0;
+  const hasDiscount =  plan.discountPercent > 0;
 
   return (
     <motion.div
