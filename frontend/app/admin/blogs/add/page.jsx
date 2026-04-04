@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Select from "react-select";
+import RichTextEditor from "@/components/ui/RichTextEditor";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -181,13 +181,10 @@ export default function AdminAddBlogPage() {
                     </CardHeader>
                     <CardContent className="grid grid-cols-1 gap-6 ">
                         <FormField label="Body" error={errors.body}>
-                            <Textarea
-                                id="body"
-                                name="body"
-                                rows={12}
+                            <RichTextEditor
                                 value={form.body}
-                                onChange={handleChange}
-                                className="min-h-[200px] resize-y"
+                                onChange={(html) => setForm((prev) => ({ ...prev, body: html }))}
+                                placeholder="Write your blog post..."
                             />
                         </FormField>
                         <FormField label="Featured Image" error={errors.featured_image}>

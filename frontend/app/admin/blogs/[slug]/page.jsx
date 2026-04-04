@@ -16,6 +16,7 @@ import { AdminLoader } from "@/components/admin/AdminLoader";
 import { Loader2, X } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { Label } from "@/components/ui/label";
+import RichTextEditor from "@/components/ui/RichTextEditor";
 
 const selectStyles = getAdminSelectStyles();
 function FormField({ label, children, error }) {
@@ -227,13 +228,11 @@ export default function AdminEditBlog() {
                     </CardHeader>
 
                     <CardContent className="grid grid-cols-1 gap-6">
-                        <Textarea
-                            name="body"
-                            value={form.body}
-                            onChange={handleChange}
-                            rows={10}
-                            placeholder="Write your blog content..."
-                        />
+                    <RichTextEditor
+                                value={form.body}
+                                onChange={(html) => setForm((prev) => ({ ...prev, body: html }))}
+                                placeholder="Write your blog post..."
+                            />
                         <FormField label="Featured Image">
                             {/* Preview الصورة الحالية */}
                             {form.featured_image_url && !form.featured_image && (
