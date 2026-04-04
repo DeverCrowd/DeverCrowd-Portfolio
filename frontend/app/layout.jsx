@@ -20,6 +20,7 @@ export const metadata = {
   },
   description:
     "DeverCrowd builds high-performing websites and mobile apps that solve real problems and grow your business.",
+
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -27,12 +28,24 @@ export const metadata = {
     title: "DeverCrowd — Digital products & web development",
     description:
       "Websites, mobile apps, and engineering support — built for performance and growth.",
+
+    images: [
+      {
+        url: "/og-image.png", // 👈 أهم سطر
+        width: 1200,
+        height: 630,
+        alt: "DeverCrowd",
+      },
+    ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "DeverCrowd",
     description: "Digital products studio — web, mobile, and growth.",
+    images: ["/og-image.png"], // 👈 مهم برضه
   },
+
   robots: {
     index: true,
     follow: true,
