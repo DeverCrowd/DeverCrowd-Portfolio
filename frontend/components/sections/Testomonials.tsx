@@ -26,7 +26,6 @@ const Testimonials = () => {
       <div className="w-full max-w-md mx-auto">
         <Swiper
           modules={[Pagination, Autoplay, EffectCards]}
-          loop={true}
           pagination={{ dynamicBullets: true }}
           effect="cards"
           autoplay={{

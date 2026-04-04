@@ -8,10 +8,16 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 5,
+        retry: 1,
+      },
+    },
+  }));
 
   return (
-
     <ThemeProvider
       attribute="class"
       defaultTheme="system"

@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { post } from "@/data/api";
 import { clearAdminCookie, STORAGE_TOKEN_KEY } from "@/lib/auth";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard, match: "exact" },
@@ -37,8 +38,11 @@ function isActivePath(pathname, href, mode) {
 export function AdminSidebarNav({ className, onNavigate }) {
   const pathname = usePathname();
   const router = useRouter();
-  if (typeof window === "undefined") return null;
-  const username = localStorage.getItem('username')
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    setUsername(localStorage.getItem("username") ?? "");
+  }, []);
   const handleLogout = async () => {
     try {
       await post("/api/admin/logout", {});

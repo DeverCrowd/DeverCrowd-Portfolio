@@ -2,11 +2,11 @@
 import H1 from "@/components/ui/H1";
 import P from "@/components/ui/P";
 import { useAdmins } from "@/hooks/useAdmins";
-import ProfileCard from '../ProfileCard'
 import TiltedCard from '../TiltedCard';
 
 const OurStack = () => {
     const { data: admins = [] } = useAdmins();
+
     return (
         <section
             id="our-team"
@@ -21,6 +21,7 @@ const OurStack = () => {
                 {admins.map((admin) => {
                     return (
                         <TiltedCard
+                            key={admin._id}
                             imageSrc={admin.pic}
                             altText={admin.username}
                             captionText={admin.username}

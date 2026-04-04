@@ -21,7 +21,7 @@ const DEFAULT_IMAGES = [
   { src: 'https://cdn.simpleicons.org/githubactions/2088FF', alt: 'GitHub Actions' },
   { src: 'https://cdn.simpleicons.org/git/F05032', alt: 'Git' },
   { src: 'https://cdn.simpleicons.org/linux/FCC624', alt: 'Linux' },
-  { src: 'https://cdn.simpleicons.org/amazonaws/FF9900', alt: 'AWS' },
+  { src: 'https://cdn.simpleicons.org/amazonwebservices/FF9900', alt: 'AWS' },
   { src: 'https://cdn.simpleicons.org/vercel/ffffff', alt: 'Vercel' },
   { src: 'https://cdn.simpleicons.org/supabase/3ECF8E', alt: 'Supabase' },
   { src: 'https://cdn.simpleicons.org/firebase/FFCA28', alt: 'Firebase' },
