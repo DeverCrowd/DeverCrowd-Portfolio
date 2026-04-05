@@ -3,7 +3,7 @@ const redis = require("../config/redis");
 
 const generateJWT = async (payload) => {
   const token = await jwt.sign(payload, process.env.JWT_SECRET_KEY, {
-    expiresIn: "24h",
+    expiresIn: "30d",
   });
   return token;
 }; 
