@@ -119,7 +119,6 @@ export default function BlogPage() {
   }, []);
 
   const handleLike = async () => {
-    if (liked) return;
     try {
       const res = await post(`/api/blogs/${slug}/like`, {});
       if (!res.ok) throw new Error();
