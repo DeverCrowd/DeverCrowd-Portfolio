@@ -276,7 +276,6 @@ export default function BlogPage() {
         >
           <button
             onClick={handleLike}
-            disabled={liked}
             className="flex items-center gap-3 rounded-full border border-border px-6 py-3 text-sm font-medium transition-all duration-200 hover:border-red-400/50 hover:bg-red-500/8 disabled:opacity-60"
             style={liked ? { borderColor: "rgba(239,68,68,0.4)", color: "rgb(239,68,68)" } : {}}
           >
