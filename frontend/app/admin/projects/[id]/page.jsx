@@ -14,6 +14,9 @@ import { toast } from "sonner";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminLoader } from "@/components/admin/AdminLoader";
 import { Loader2 } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Loader2, X } from "lucide-react";
+
 const statusOptions = [
   { value: "pending", label: "Pending" },
   { value: "in progress", label: "In Progress" },
@@ -83,6 +86,7 @@ export default function AdminEditProjectPage() {
   const [project, setProject] = useState(null);
   const [loadError, setLoadError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const [form, setForm] = useState({
     title: "",
@@ -182,9 +186,11 @@ export default function AdminEditProjectPage() {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) {
+      setErrors(errs); // <- مهم هنا
       toast.error("Fix errors first");
       return;
     }
+    setErrors({}); // reset errors if no errors
 
     setSubmitting(true);
     try {
