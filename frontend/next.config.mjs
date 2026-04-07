@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  turbopack: {
-    root: "./",
-  },
   allowedDevOrigins: ['10.0.0.4'],
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "res.cloudinary.com" },
-    ],
     remotePatterns: [
       {
         protocol: "http",
