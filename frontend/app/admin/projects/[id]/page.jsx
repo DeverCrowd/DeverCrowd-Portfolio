@@ -95,7 +95,7 @@ export default function AdminEditProjectPage() {
     timeToFinish: "",
     client: "",
     status: "pending",
-    cost: "",
+    cost: 0,
     timeSpend: "",
     category: "",
     scope: [],
