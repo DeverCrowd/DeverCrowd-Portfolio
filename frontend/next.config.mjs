@@ -10,7 +10,7 @@ const withNextIntl = createNextIntlPlugin('./i18n.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: {
-    root: path.resolve(__dirname, '../'), // absolute path
+    root: path.resolve(__dirname, './'), // absolute path
   },
   images: {
     remotePatterns: [
