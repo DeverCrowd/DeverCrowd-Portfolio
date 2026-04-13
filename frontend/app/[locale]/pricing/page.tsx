@@ -37,6 +37,7 @@ function PlanCard({ plan, index }: { plan: PricingPlan; index: number }) {
 
   return (
     <motion.div
+    dir="ltr"
       key={plan._id}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
@@ -179,11 +180,11 @@ export default function PricingPage() {
   }, [plans]);
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
 
       {/* Header */}
       <motion.div
-        className="mb-12 text-center"
+        className="mb-16 text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

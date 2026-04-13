@@ -133,7 +133,17 @@
     "all": "All",
     "loading": "Loading projects...",
     "error": "Failed to load projects. Please try again later.",
-    "empty": "No projects found."
+    "empty": "No projects found.",
+    "back": "Back to Works",
+    "demo": "Live Demo",
+    "code": "View Code",
+    "client": "Client",
+    "timeline": "Timeline",
+    "category": "Category",
+    "status": "Status",
+    "stack": "Tech Stack",
+    "industry": "Industry",
+    "scope": "Scope of Work"
   },
   "Services": {
     "title_start": "What you",

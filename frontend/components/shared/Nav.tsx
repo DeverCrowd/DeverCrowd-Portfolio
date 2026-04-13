@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { Link, usePathname } from "@/i18n/navigation";
 import ThemeToggle from "./ThemeToggle";
+import { useLocale } from "next-intl";
 
 interface NavLink {
   href: string;
@@ -24,6 +25,8 @@ const Nav = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const locale = useLocale();
+
 
   useEffect(() => {
     if (menuOpen) document.body.style.overflow = "hidden";
@@ -65,6 +68,7 @@ const Nav = () => {
     <>
 
       <nav
+        dir="ltr"
         aria-label="Main navigation"
         className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl backdrop-blur-xl rounded-4xl border border-primary/30 transition-all duration-300"
         style={{
@@ -83,31 +87,29 @@ const Nav = () => {
             </Link>
 
             {/* اللمبة الخارجية — تحت اللوجو على الموبايل والديسكتوب */}
-          {(menuOpen === false) && (
-        
-            
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: "50%",
-                transform: "translateX(-50%)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <div className="bulb-hang-wrap z-50">
-                <div className="bulb-wire" />
-                <ThemeToggle />
+            {(menuOpen === false) && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "0%",
+                  transform: "translateX(-50%)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <div className="bulb-hang-wrap z-50">
+                  <div className="bulb-wire" />
+                  <ThemeToggle />
+                </div>
               </div>
-            </div>
-       )} 
+            )}
           </div>
-        
+
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div dir={locale === "ar" ? "rtl" : "ltr"} className="hidden md:flex items-center gap-1">
             {navKeys.map(({ href, translationKey }) => (
               <Link
                 key={href}
@@ -178,10 +180,10 @@ const Nav = () => {
                 <div className="bulb-wire" />
                 <ThemeToggle />
               </div>
-            </div> 
+            </div>
 
             {/* Nav links */}
-            <div className="flex flex-col gap-1 py-2">
+            <div dir={locale === "ar" ? "rtl" : "ltr"} className="flex flex-col gap-1 py-2">
               {navKeys.map(({ href, translationKey }, i) => (
                 <Link
                   key={href}
@@ -204,9 +206,7 @@ const Nav = () => {
                 borderTop: "1px solid var(--border)",
               }}
             >
-              <div className="flex items-center justify-start px-1">
-                <LanguageSwitcher />
-              </div>
+
 
               <Link
                 href="/contact"

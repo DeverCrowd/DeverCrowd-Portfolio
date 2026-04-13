@@ -150,7 +150,7 @@ export default function BlogPage() {
   );
 
   return (
-    <main className="relative min-h-screen bg-background">
+    <main dir="ltr" className="relative min-h-screen bg-background">
       {/* Reading progress bar */}
       <div className="fixed top-0 left-0 z-50 h-0.5 bg-border w-full">
         <motion.div
@@ -291,7 +291,7 @@ export default function BlogPage() {
             className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to all articles
+            {t("back")}
           </Link>
         </motion.div>
       </div>

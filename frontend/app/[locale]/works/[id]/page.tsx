@@ -11,8 +11,10 @@ import { motion } from "motion/react";
 import { ArrowLeft, ExternalLink, AlertCircle, Loader2 } from "lucide-react";
 import { BsGithub } from "react-icons/bs";
 import { useLenis } from "@/hooks/useLenis";
+import { useTranslations } from "next-intl";
 
 export default function ProjectDetail() {
+  const t = useTranslations("Works");
   useLenis();
   const { id } = useParams<{ id: string }>();
 
@@ -25,8 +27,8 @@ export default function ProjectDetail() {
         if (res.ok && res.data?.project) {
           return normalizeProject(res.data.project);
         }
-      } catch (err) {}
-      
+      } catch (err) { }
+
       // Fallback: fetch all and find if single fetch fails
       const allRes = await get<{ projects: Project[] }>("/api/projects");
       if (!allRes.ok) throw new Error("Failed to load project");
@@ -50,29 +52,29 @@ export default function ProjectDetail() {
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex items-center gap-3 rounded-lg border border-destructive/30 bg-destructive/10 p-6 text-sm text-destructive">
           <AlertCircle className="h-5 w-5" />
-          Project not found or failed to load.
+          {t("error")}
         </div>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-background pt-24 pb-20">
+    <main dir="ltr" className="min-h-screen bg-background pt-24 pb-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        
+
         {/* Back Link */}
         <motion.div
-           initial={{ opacity: 0, x: -10 }}
-           animate={{ opacity: 1, x: 0 }}
-           transition={{ duration: 0.4 }}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
         >
           <Link href="/works" className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Back to projects
+            <ArrowLeft className="h-4 w-4" /> {t("back")}
           </Link>
         </motion.div>
 
         {/* Hero Image */}
-        <motion.div 
+        <motion.div
           className="relative h-[40vh] min-h-[300px] w-full overflow-hidden rounded-3xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -86,7 +88,7 @@ export default function ProjectDetail() {
             unoptimized={project.pic?.startsWith("http")}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
-          
+
           <div className="absolute bottom-6 right-6 flex gap-3">
             {project.live && (
               <Link
@@ -96,7 +98,7 @@ export default function ProjectDetail() {
                 className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-primary/90 hover:scale-105"
               >
                 <ExternalLink className="h-4 w-4" />
-                Live Demo
+                {t("demo")}
               </Link>
             )}
             {project.github && (
@@ -107,14 +109,14 @@ export default function ProjectDetail() {
                 className="flex items-center gap-2 rounded-xl bg-black/40 backdrop-blur-md px-5 py-2.5 text-sm font-semibold text-white border border-white/20 shadow-lg transition hover:bg-black/60 hover:scale-105"
               >
                 <BsGithub className="h-4 w-4" />
-                View Code
+                {t("code")}
               </Link>
             )}
           </div>
         </motion.div>
 
         {/* Content */}
-        <motion.div 
+        <motion.div
           className="mt-12 space-y-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -129,10 +131,10 @@ export default function ProjectDetail() {
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: "Client", value: project.client },
-              { label: "Timeline", value: project.timeSpend },
-              { label: "Category", value: project.category },
-              { label: "Status", value: project.status },
+              { label: t('client'), value: project.client },
+              { label: t('timeline'), value: project.timeSpend },
+              { label: t('category'), value: project.category },
+              { label: t('status'), value: project.status },
             ].map(({ label, value }) =>
               value ? (
                 <div key={label} className="rounded-2xl border border-border bg-card p-5">
@@ -148,9 +150,9 @@ export default function ProjectDetail() {
           {/* Detailed Lists */}
           <div className="grid md:grid-cols-2 gap-12">
             {[
-              { label: "Core Stack", items: project.stack },
-              { label: "Industry", items: project.industry },
-              { label: "Scope of Work", items: project.scope },
+              { label: t('stack'), items: project.stack },
+              { label: t('industry'), items: project.industry },
+              { label: t('scope'), items: project.scope },
             ].map(({ label, items }) =>
               items && items.length > 0 ? (
                 <div key={label}>
