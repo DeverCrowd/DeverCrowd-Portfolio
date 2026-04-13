@@ -165,7 +165,7 @@ const Nav = () => {
               <LanguageSwitcher />
               <Link
                 href="/contact"
-                className="relative flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary to-accent shadow-[0_2px_10px_rgba(146,56,248,0.3)] transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_3px_15px_rgba(146,56,248,0.3)] active:scale-95 overflow-hidden"
+                className="hidden md:relative md:flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary to-accent shadow-[0_2px_10px_rgba(146,56,248,0.3)] transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_3px_15px_rgba(146,56,248,0.3)] active:scale-95 overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <HiMail className="text-base" />
