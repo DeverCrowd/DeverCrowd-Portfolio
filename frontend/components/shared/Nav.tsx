@@ -139,8 +139,9 @@ const Nav = () => {
                 <ThemeToggle />
               </div>
             </div>
+       )} 
           </div>
-        ) }
+        
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1">
