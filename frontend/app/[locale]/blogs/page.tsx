@@ -55,6 +55,8 @@ function HeroBlogCard({ blog }: { blog: Blog }) {
   const t = useTranslations("Blogs")
   return (
     <motion.div
+    dir="ltr"
+
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -146,6 +148,7 @@ function BlogCard({ blog, index }: { blog: Blog; index: number }) {
   const t = useTranslations("Blogs")
   return (
     <motion.div
+    dir="ltr"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
