@@ -79,7 +79,7 @@ export default function WorksPage() {
       )}
         
         {/* Grid */}
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <div dir="ltr" className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
           {filtered.length === 0 ? (
             <div className="py-24 text-center text-muted-foreground">{t("empty")}</div>
           ) : (

@@ -295,7 +295,7 @@ export default function BlogsPage() {
 
           {/* Grid */}
           {rest.length > 0 && (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div dir="ltr" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {rest.map((blog, i) => (
                 <BlogCard key={blog._id} blog={blog} index={i} />
               ))}
