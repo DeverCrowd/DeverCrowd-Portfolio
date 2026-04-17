@@ -55,7 +55,7 @@ const FloatingNav = () => {
     <>
       {/* Desktop */}
       <div
-        className="hidden md:flex fixed left-6 top-1/4 -translate-y-1/2 z-50 flex-col gap-1.5 p-2.5 rounded-2xl border border-primary/30 backdrop-blur-md"
+        className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-50 flex-col gap-1.5 p-2.5 rounded-2xl border border-primary/30 backdrop-blur-md"
         style={{
           background: "color-mix(in srgb, var(--card) 80%, transparent)",
         }}

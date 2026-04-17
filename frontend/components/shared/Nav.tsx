@@ -6,6 +6,7 @@ import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { Link, usePathname } from "@/i18n/navigation";
 import ThemeToggle from "./ThemeToggle";
 import { useLocale } from "next-intl";
+import Image from "next/image";
 
 interface NavLink {
   href: string;
@@ -81,18 +82,23 @@ const Nav = () => {
           {/* Logo + لمبة معلقة تحته دايماً */}
           <div className="relative">
             <Link href="/" className="flex items-center gap-2 " aria-label="DeverCrowd home">
-              <span className="font-semibold text-xl text-foreground">
-                <span className="text-primary ">Dever</span>Crowd
-              </span>
+              <Image
+                src="/dclogo.png"
+                alt="DeverCrowd Logo"
+                width={50}
+                height={50}
+                className="rounded-2xl object-cover"
+                priority
+              />
             </Link>
 
             {/* اللمبة الخارجية — تحت اللوجو على الموبايل والديسكتوب */}
             {(menuOpen === false) && (
-              <div
+              <div 
                 style={{
                   position: "absolute",
                   top: "100%",
-                  left: "0%",
+                  left: "50%",
                   transform: "translateX(-50%)",
                   display: "flex",
                   flexDirection: "column",
